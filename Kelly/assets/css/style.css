@@ -457,6 +457,21 @@ h1, h2, h3, h4, h5, h6 {
   background: #3dc8b7;
 }
 
+#hero .btn-scroll {
+  transition: 0.4s;
+  color: #34b7a7;
+  animation: up-down 1s ease-in-out infinite alternate-reverse both;
+}
+
+#hero .btn-scroll i {
+  font-size: 48px;
+}
+
+#hero .btn-scroll:hover {
+  color: #3dc8b7;
+}
+
+
 @media (min-width: 1024px) {
   #hero {
     background-attachment: fixed;
@@ -480,6 +495,24 @@ h1, h2, h3, h4, h5, h6 {
   #hero h2 {
     font-size: 18px;
     line-height: 24px;
+  }
+}
+
+@-webkit-keyframes up-down {
+  0% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes up-down {
+  0% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(-5px);
   }
 }
 
