@@ -531,6 +531,7 @@ section {
 .section-title {
   text-align: center;
   padding-bottom: 30px;
+  position: relative;
 }
 
 .section-title h2 {
@@ -540,6 +541,20 @@ section {
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
+  z-index: 2;
+}
+
+.section-title span {
+  position: absolute;
+  top: 0px;
+  color: #eef0f2;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-weight: 700;
+  font-size: 52px;
+  text-transform: uppercase;
+  line-height: 0;
 }
 
 .section-title h2::after {
