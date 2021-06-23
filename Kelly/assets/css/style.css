@@ -458,6 +458,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .btn-scroll {
+  /* padding-top: 360px; */
   transition: 0.4s;
   color: #34b7a7;
   animation: up-down 1s ease-in-out infinite alternate-reverse both;
@@ -1302,4 +1303,8 @@ section {
 
 #footer .credits a {
   color: #34b7a7;
+}
+
+#footer .counter{
+  margin-bottom: 16px;
 }
