@@ -247,6 +247,25 @@
   });
 
   /**
+   * Calvin Hobbes slider
+   */
+  new Swiper('.calvin-hobbes-slider', {
+    slidesPerView: 1,
+    lazy: true,
+    // direction: vertical,
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+
+  /**
    * Animation on scroll
    */
   window.addEventListener('load', () => {
