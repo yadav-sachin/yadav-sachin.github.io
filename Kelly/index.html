@@ -17,7 +17,7 @@
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: Amsterdam;
@@ -50,7 +50,7 @@
   <header id="header" class="fixed-top d-flex justify-content-center align-items-center header-transparent">
     <div class="container-fluid d-flex justify-content-between align-items-center">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Sachin Yadav</a></h1>
+      <h1 class="logo me-auto me-lg-0 my-auto"><a href="index.html">Sachin <span class="hidden-nd">Yadav</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -80,7 +80,7 @@
   <section id="hero" class="d-flex align-items-center">
     <div class="container d-flex flex-column align-items-center" data-aos="zoom-in" data-aos-delay="100">
       <h1>Sachin Yadav</h1>
-      <h2>I'm an undergraduate student at IIT Gandhinagar</h2>
+      <h2 class="text-center">I'm an undergraduate student at IIT Gandhinagar</h2>
 
       <a href="#about" class="btn-scroll scrollto" title="Scroll Down"><i class="bx bx-chevron-down"></i></a>
 
@@ -721,7 +721,7 @@
             </div>
           </div>
 
-          <div class="col-lg-8 mt-5 mt-lg-0" style="position: relative;">
+          <div class="col-lg-8 mt-lg-5 mt-lg-0" style="position: relative;">
             <!-- Slider main container -->
             <div class="calvin-hobbes-slider">
               <!-- Additional required wrapper -->
@@ -757,22 +757,42 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
-    <div class="container">
-      <div class="counter" align='center'>Visit Count </br>
-        <div>
-          <img
-            src='https://hitwebcounter.com/counter/counter.php?page=7830428&style=0006&nbdigits=5&type=page&initCount=0'
-            border='0' loading="lazy" alt='hit counter'>
+    <div class="row container-fluid">
+      <div class="col-md-9 my-auto quotes-container" style="position: relative;">
+        <div class="quote" style="z-index: 2;">
+          <span class="quote-text">“All the world is a laboratory to the inquiring mind.” — </span>
+          <span class="quote-author"> Martin Fischer </span>
+        </div>
+        <div class="quote" style="z-index: 3;">
+          <span class="quote-text">“Education is what remains after one has forgotten what one has learned in school.” — </span>
+          <span class="quote-author"> Albert Einstein </span>
+        </div>
+        <div class="quote" style="z-index: 4;">
+          <span class="quote-text">“Be the change that you want to see in the world.” — </span>
+          <span class="quote-author"> Mahatama Gandhi </span>
+        </div>
+        <div class="quote" style="z-index: 5;">
+          <span class="quote-text">“A ship is safe in harbor, but that's not what ships are for.” — </span>
+          <span class="quote-author"> William Shedd </span>
         </div>
       </div>
-      <div class="credits row justify-content-end">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/kelly-free-bootstrap-cv-resume-html-template/ -->
-        Last Updated: June, 2021
-        </br>
-        Designed with ❤ and BootstrapMade
+      <div class="col-md-3 text-center">
+        <div class="counter credits row justify-content-center">Visit Count </br>
+          <div>
+            <img
+              src='https://hitwebcounter.com/counter/counter.php?page=7830428&style=0006&nbdigits=5&type=page&initCount=0'
+              border='0' loading="lazy" alt='hit counter'>
+          </div>
+        </div>
+        <div class="credits row justify-content-center">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/kelly-free-bootstrap-cv-resume-html-template/ -->
+          Last Updated: June, 2021
+          </br>
+          Designed with ❤ and BootstrapMade
+        </div>
       </div>
   </footer><!-- End  Footer -->
 
@@ -789,6 +809,9 @@
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+  <!-- jQuery JS Files -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>

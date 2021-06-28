@@ -277,4 +277,29 @@
     });
   });
 
+
+  /**
+   * Footer Quotes Fade-in Fade-out
+   */
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function some(){
+    let num_quotes = $(".quote").length;
+    let idx = 0;
+    $(".quote").css("opacity", 0);
+    while(true)
+    {
+      $(".quote").eq(idx).animate({opacity: 1}, 3000);
+      await sleep(10000);
+      $(".quote").eq(idx).animate({opacity: 0}, 500);
+      idx = (idx + 1) % num_quotes;
+    }
+  }
+  some();
+
+  
+  // setInterval(some, 20000);
 })()
