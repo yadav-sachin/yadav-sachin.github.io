@@ -425,9 +425,9 @@ h1, h2, h3, h4, h5, h6 {
   background: 
   linear-gradient(
     to top,
-    rgba(233, 232, 230, 0.4),
-    rgba(233, 232, 230, 0.7) 50%,
-    rgba(233, 232, 230, 0.4) 100%
+    rgba(233, 232, 230, 0.6),
+    rgba(233, 232, 230, 0.9) 50%,
+    rgba(233, 232, 230, 0.6) 100%
   ),
   url("../img/hero-bg.jpg") top right;
   background-size: cover;
