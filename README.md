@@ -2,7 +2,7 @@
 
 Currently under construction: 🏗️🚧👷
 
-Link: https://yadav-sachin.github.io/personal-website/
+Link: https://yadav-sachin.github.io/
 
 Template themes:
 - [Kelly -- BootstrapMade](https://bootstrapmade.com/demo/Kelly/)
