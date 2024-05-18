@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Deep encoders with auxiliary parameters for extreme classification.">
+  <meta name="keywords" content="Deep Encoders, Auxiliary Parameters, Extreme Classification">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deep Encoders with Auxiliary Parameters for Extreme Classification</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Deep Encoders with Auxiliary Parameters for Extreme Classification
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://kunaldahiya.github.io/">Kunal Dahiya</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://yadav-sachin.github.io/">Sachin Yadav</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="mailto:sushantsondhi@gmail.com">Sushant Sondhi</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://deepaksaini119.github.io/">Deepak Saini</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sonumehta.github.io/">Sonu Mehta</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="mailto:Jian.Jiao@microsoft.com">Jian Jiao</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://web.iitd.ac.in/~sumeet/">Sumeet Agarwal</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.cse.iitk.ac.in/users/purushot/about.php">Purushottam Kar</a><sup>4</sup>,
+              </span>
+              <span class="author-block">
+                <a href="mailto:manik@microsoft.com">Manik Varma</a><sup>2</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>IIT Delhi,</span>
+              <span class="author-block"><sup>2</sup>Microsoft Research,</span>
+              <span class="author-block"><sup>3</sup>Microsoft,</span>
+              <span class="author-block"><sup>4</sup>IIT Kanpur</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="http://manikvarma.org/pubs/dahiya23b.pdf"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href="https://www.youtube.com/watch?v=4vGX2H780KY"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/Extreme-classification/dexa"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Dataset Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="far fa-images"></i>
+                    </span>
+                    <span>ORCAS-800K Dataset</span>
+                  </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+          <source src="./static/videos/teaser.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered">
+          <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+          free-viewpoint
+          portraits.
+        </h2>
+      </div>
+    </div>
+  </section> -->
+
+
+  <!-- <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/steve.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/chair-tp.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/shiba.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/fullbody.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-blueshirt">
+            <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/blueshirt.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-mask">
+            <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/mask.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-coffee">
+            <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/coffee.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-toby">
+            <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/toby2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Image. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <img src="./static/images/dexa_module_1_2.png" alt="DEXA Module">
+        </div>
+      </div>
+      <!--/ Image. -->
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              The task of annotating a data point with labels most relevant to it
+              from a large universe of labels is referred to as Extreme Classification (XC). State-of-the-art XC methods
+              have applications in ranking,
+              recommendation, and tagging and mostly employ a combination
+              architecture comprised of a deep encoder and a high-capacity classifier. These two components are often
+              trained in a modular fashion
+              to conserve compute. This paper shows that in XC settings where
+              data paucity and semantic gap issues abound, this can lead to suboptimal encoder training which negatively
+              affects the performance
+              of the overall architecture. The paper then proposes a lightweight
+              alternative DEXA that augments encoder training with auxiliary
+              parameters. Incorporating DEXA into existing XC architectures requires minimal modifications and the
+              method can scale to datasets
+              with 40 million labels and offer predictions that are up to 6% and
+              15% more accurate than embeddings offered by existing deep XC
+              methods on benchmark and proprietary datasets, respectively. The
+              paper also analyzes DEXA theoretically and shows that it offers
+              provably superior encoder training than existing Siamese training
+              strategies in certain realizable settings.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+      <!-- Paper video. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Video</h2>
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/4vGX2H780KY?si=rj1vSlrgp3VM2zM9?rel=0&amp;showinfo=0"
+              frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      <!--/ Paper video. -->
+    </div>
+  </section>
+
+  <section>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            In text-based applications where both data points and labels contain textual data, embedding them into a shared space is a common strategy. By training a Siamese-style deep encoder, related data points and labels are embedded closely. However, the semantic gap, especially in short-text applications, poses challenges. Previous methods use label-specific linear correction terms, incurring high computational costs. DEXA introduces a limited set of shared auxiliary parameters, significantly improving efficiency by leveraging the similarity of related labels' correction terms. This approach enhances encoder training performance, demonstrating up to 15% improvement in prediction accuracy on benchmarks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-centered has-text-centered">
+      <h2 class="title is-3">Improved Encoder Training</h2>
+      <h3><b>P@1 Values for Different Methods and Benchmarks</b></h3>
+      <div class="columns is-centered">
+        <div class="column">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th style="text-align: center;">Method</th>
+                <th style="text-align: center;">LF-AmazonTitles-1.3M</th>
+                <th style="text-align: center;">LF-AmazonTitles-131K</th>
+                <th style="text-align: center;">LF-Wikipedia-500K</th>
+                <th style="text-align: center;">LF-WikiSeeAlso-320K</th>
+                <th style="text-align: center;">LF-Amazon-131K</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center; color: green; font-weight: bold;">DEXA</td>
+                <td style="text-align: center; color: green; font-weight: bold;">51.92</td>
+                <td style="text-align: center; color: green; font-weight: bold;">44.76</td>
+                <td style="text-align: center; color: green; font-weight: bold;">79.99</td>
+                <td style="text-align: center; color: green; font-weight: bold;">46.57</td>
+                <td style="text-align: center; color: green; font-weight: bold;">46.64</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">NGAME</td>
+                <td style="text-align: center;">45.82</td>
+                <td style="text-align: center;">42.61</td>
+                <td style="text-align: center;">77.92</td>
+                <td style="text-align: center;">43.58</td>
+                <td style="text-align: center;">42.10</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">SiameseXML</td>
+                <td style="text-align: center;">43.80</td>
+                <td style="text-align: center;">38.13</td>
+                <td style="text-align: center;">50.33</td>
+                <td style="text-align: center;">40.70</td>
+                <td style="text-align: center;">41.97</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">ECLARE</td>
+                <td style="text-align: center;">38.80</td>
+                <td style="text-align: center;">33.42</td>
+                <td style="text-align: center;">63.41</td>
+                <td style="text-align: center;">35.21</td>
+                <td style="text-align: center;">34.25</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">DECAF</td>
+                <td style="text-align: center;">41.07</td>
+                <td style="text-align: center;">35.53</td>
+                <td style="text-align: center;">71.64</td>
+                <td style="text-align: center;">41.59</td>
+                <td style="text-align: center;">43.41</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">ANCE</td>
+                <td style="text-align: center;">46.44</td>
+                <td style="text-align: center;">35.47</td>
+                <td style="text-align: center;">63.33</td>
+                <td style="text-align: center;">41.16</td>
+                <td style="text-align: center;">44.87</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">DPR</td>
+                <td style="text-align: center;">44.64</td>
+                <td style="text-align: center;">43.30</td>
+                <td style="text-align: center;">62.63</td>
+                <td style="text-align: center;">41.66</td>
+                <td style="text-align: center;">43.30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+
+      <section class="section">
+        <div class="container">
+          <h2 class="title is-3">Correct and Incorrect Predictions: DEXA vs NGAME</h2>
+          <div class="columns is-centered">
+            <div class="column">
+              <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                <thead>
+                  <tr>
+                    <th style="width: 40%;">Document</th>
+                    <th style="width: 30%;">DEXA Predictions</th>
+                    <th style="width: 30%;">NGAME Predictions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td rowspan="2" style="vertical-align: top;">
+                      <p><strong>Constitutional reforms of Julius Caesar:</strong> The constitutional reforms of Julius
+                        Caesar were a series of laws pertaining to the Constitution of the Roman Republic enacted
+                        between 49 and 44 BC, during Caesar's dictatorship. Caesar died in 44 BC before the implications
+                        of his constitutional actions could ...</p>
+                    </td>
+                    <td style="vertical-align: top;">
+                      <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="color: green;">Acta Senatus</li>
+                        <li style="color: green;">Centuria</li>
+                        <li style="color: green;">Roman Law</li>
+                        <li style="color: green;">Interrex</li>
+                        <li style="color: green;">Byzantine Senate</li>
+                      </ul>
+                    </td>
+                    <td style="vertical-align: top;">
+                      <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="color: red;">Julius Caesar</li>
+                        <li style="color: red;">Assassination of Julius Caesar</li>
+                        <li style="color: red;">Caesarism</li>
+                        <li style="color: red;">Constitution of the Roman Republic</li>
+                        <li style="color: red;">Caesar's civil war</li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+      <section class="section">
+        <div class="container">
+          <h2 class="title is-3">Research Poster</h2>
+          <div class="columns is-centered">
+            <div class="column is-four-fifths">
+              <iframe id="pdf-frame" src="./static/docs/kdd_poster.pdf" width="100%" height="550px"
+                style="border: none;"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var iframe = document.getElementById("pdf-frame");
+          iframe.onload = function () {
+            iframe.style.height = iframe.contentWindow.document.documentElement.scrollHeight + 'px';
+          };
+        });
+      </script>
+
+
+
+      <!-- Related Works. -->
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Related Works</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              There are several excellent works related to our research.
+            </p>
+            <p>
+              <a href="https://arxiv.org/pdf/2207.04452.pdf">NGAME: Negative mining-aware mini-batching for extreme
+                classification</a> proposes a strategy for efficient negative sampling, enhancing the training process
+              and performance of extreme classification models.
+            </p>
+            <p>
+              <a href="http://manikvarma.org/pubs/dahiya21b.pdf">SiameseXML: Siamese networks meet extreme classifiers
+                with
+                100M labels</a> combines Siamese networks with extreme classification to handle massive label sets
+              efficiently, achieving state-of-the-art results.
+            </p>
+            <p>
+              <a href="https://arxiv.org/pdf/2111.06685">DeepXML: A Deep Extreme Multi-Label Learning Framework
+                Applied to Short Text Documents</a> introduces a framework for extreme multi-label learning,
+              specifically designed for short text documents, improving prediction accuracy.
+            </p>
+            <p>
+              <a href="http://manikvarma.org/pubs/mittal21-main.pdf">DECAF: Deep Extreme Classification with Label
+                Features</a>
+              utilizes label features to enhance deep extreme classification, providing a scalable solution for
+              large-scale datasets.
+            </p>
+            <p>
+              <a href="http://manikvarma.org/pubs/mittal21b.pdf">ECLARE: Extreme Classification with Label Graph
+                Correlations</a> explores the use of label graph correlations to improve extreme classification,
+              leveraging graph-based methods for better performance.
+            </p>
+            <p>
+              <a href="http://manikvarma.org/pubs/saini21.pdf">GalaXC: Graph Neural Networks with Labelwise Attention
+                for
+                Extreme Classification</a> applies graph neural networks with labelwise attention mechanisms to extreme
+              classification, addressing scalability and accuracy challenges.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Related Works. -->
+
+
+    </div>
+  </section>
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@InProceedings{Dahiya23b,
+    author = "Dahiya, K. and Yadav, S. and Sondhi, S. and Saini, D. and Mehta, S. and Jiao, J. and Agarwal, S. and Kar, P. and Varma, M.",
+    title = "Deep encoders with auxiliary parameters for extreme classification",
+    booktitle = "KDD",
+    month = "August",
+    year = "2023"
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          Template taken from <a href="https://nerfies.github.io">Nerfies</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
