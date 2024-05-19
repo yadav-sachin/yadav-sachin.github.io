@@ -192,7 +192,7 @@
           The core idea behind DEXA is that "related" labels likely have similar correction terms. Instead of
           assigning individual correction terms to each label, DEXA clusters labels into groups, each represented by a
           shared auxiliary vector. During training, these auxiliary vectors help adjust the label embeddings, ensuring
-          that the encoder captures the nuanced relationships between related labels without overfitting to specific
+          that the encoder captures the nuanced relationships between datapoints and labels without overfitting to 
           label texts. This clustering approach reduces computational overhead and enhances scalability, allowing DEXA
           to perform effectively on datasets with millions of labels.
         </p>
@@ -202,7 +202,7 @@
         <ul>
           <li>
             <b>Module I: Encoder Training with Auxiliary Vectors</b> - Labels are clustered, and each cluster is
-            assigned an auxiliary vector. The encoder is trained to embed data points and label clusters into a shared
+            assigned an auxiliary vector. The encoder is trained to embed data points and augmented labels into a shared
             space, leveraging these auxiliary vectors to bridge the semantic gap.
           </li>
           <li>
