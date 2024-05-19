@@ -188,11 +188,15 @@
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Image. -->
+      <!-- Image. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <img src="./static/images/dexa_module_1_2.png" alt="DEXA Module">
+          <p>Illustration of DEXA's architectural modifications and training modules. The model employs shared
+            auxiliary vectors for improved encoder training and performance.</p>
         </div>
       </div>
+
       <!--/ Image. -->
       <!-- Abstract. -->
       <div class="columns is-centered has-text-centered">
@@ -245,7 +249,38 @@
         <h2 class="title is-3">Method Overview</h2>
         <div class="content has-text-justified">
           <p>
-            In text-based applications where both data points and labels contain textual data, embedding them into a shared space is a common strategy. By training a Siamese-style deep encoder, related data points and labels are embedded closely. However, the semantic gap, especially in short-text applications, poses challenges. Previous methods use label-specific linear correction terms, incurring high computational costs. DEXA introduces a limited set of shared auxiliary parameters, significantly improving efficiency by leveraging the similarity of related labels' correction terms. This approach enhances encoder training performance, demonstrating up to 15% improvement in prediction accuracy on benchmarks.
+            DEXA introduces a novel approach to addressing the semantic gap in Extreme Classification (XC) applications,
+            especially those involving short-text data points and labels. Traditional XC methods often suffer from
+            suboptimal encoder training due to the modular approach where the encoder and classifier are trained
+            separately. DEXA addresses this by incorporating shared auxiliary parameters during encoder training,
+            significantly improving the embedding quality and subsequent classification performance.
+          </p>
+          <p>
+            The core idea behind DEXA is that "related" labels likely have similar correction terms. Instead of
+            assigning individual correction terms to each label, DEXA clusters labels into groups, each represented by a
+            shared auxiliary vector. During training, these auxiliary vectors help adjust the label embeddings, ensuring
+            that the encoder captures the nuanced relationships between related labels without overfitting to specific
+            label texts. This clustering approach reduces computational overhead and enhances scalability, allowing DEXA
+            to perform effectively on datasets with millions of labels.
+          </p>
+          <p>
+            DEXA's architecture involves two key modules:
+          </p>
+          <ul>
+            <li>
+              <b>Module I: Encoder Training with Auxiliary Vectors</b> - Labels are clustered, and each cluster is
+              assigned an auxiliary vector. The encoder is trained to embed data points and label clusters into a shared
+              space, leveraging these auxiliary vectors to bridge the semantic gap.
+            </li>
+            <li>
+              <b>Module II: Classifier Training</b> - The encoder is frozen, and label classifiers are initialized with
+              the augmented label embeddings. These classifiers are then fine-tuned to achieve high accuracy in
+              predicting the relevant labels for given data points.
+            </li>
+          </ul>
+          <p>
+            This approach enables DEXA to outperform existing XC methods, providing significant gains in
+            prediction accuracy while maintaining computational efficiency.
           </p>
         </div>
       </div>
@@ -256,6 +291,83 @@
   <section class="section">
     <div class="container is-centered has-text-centered">
       <h2 class="title is-3">Improved Encoder Training</h2>
+      <h3><b>Precision@1 Values for Different Methods and Benchmarks</b></h3>
+      <canvas id="encoder-training-chart" style="width:100%; height:400px;"></canvas>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var ctx = document.getElementById('encoder-training-chart').getContext('2d');
+      if (ctx) {
+        var chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['LF-AmazonTitles-1.3M', 'LF-Wikipedia-500K', 'LF-WikiSeeAlso-320K'],
+            datasets: [{
+              label: 'DEXA',
+              data: [51.92, 79.99, 46.57],
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }, {
+              label: 'NGAME',
+              data: [45.82, 77.92, 43.58],
+              backgroundColor: 'rgba(153, 102, 255, 0.2)',
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 1
+            }, {
+              label: 'SiameseXML',
+              data: [43.80, 50.33, 40.70],
+              backgroundColor: 'rgba(255, 206, 86, 0.2)',
+              borderColor: 'rgba(255, 206, 86, 1)',
+              borderWidth: 1
+            }, {
+              label: 'ECLARE',
+              data: [38.80, 63.41, 35.21],
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }, {
+              label: 'DECAF',
+              data: [41.07, 71.64, 41.59],
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+            }, {
+              label: 'ANCE',
+              data: [46.44, 63.33, 41.16],
+              backgroundColor: 'rgba(153, 102, 255, 0.2)',
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 1
+            }, {
+              label: 'DPR',
+              data: [44.64, 62.63, 41.66],
+              backgroundColor: 'rgba(255, 159, 64, 0.2)',
+              borderColor: 'rgba(255, 159, 64, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      } else {
+        console.error('Unable to get context for encoder-training-chart');
+      }
+    });
+  </script>
+
+
+
+  <!-- <section class="section">
+    <div class="container is-centered has-text-centered">
+      <h2 class="title is-3">Improved Encoder Training</h2>
       <h3><b>P@1 Values for Different Methods and Benchmarks</b></h3>
       <div class="columns is-centered">
         <div class="column">
@@ -264,88 +376,140 @@
               <tr>
                 <th style="text-align: center;">Method</th>
                 <th style="text-align: center;">LF-AmazonTitles-1.3M</th>
-                <th style="text-align: center;">LF-AmazonTitles-131K</th>
                 <th style="text-align: center;">LF-Wikipedia-500K</th>
                 <th style="text-align: center;">LF-WikiSeeAlso-320K</th>
-                <th style="text-align: center;">LF-Amazon-131K</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td style="text-align: center; color: green; font-weight: bold;">DEXA</td>
                 <td style="text-align: center; color: green; font-weight: bold;">51.92</td>
-                <td style="text-align: center; color: green; font-weight: bold;">44.76</td>
                 <td style="text-align: center; color: green; font-weight: bold;">79.99</td>
                 <td style="text-align: center; color: green; font-weight: bold;">46.57</td>
-                <td style="text-align: center; color: green; font-weight: bold;">46.64</td>
               </tr>
               <tr>
                 <td style="text-align: center;">NGAME</td>
                 <td style="text-align: center;">45.82</td>
-                <td style="text-align: center;">42.61</td>
                 <td style="text-align: center;">77.92</td>
                 <td style="text-align: center;">43.58</td>
-                <td style="text-align: center;">42.10</td>
               </tr>
               <tr>
                 <td style="text-align: center;">SiameseXML</td>
                 <td style="text-align: center;">43.80</td>
-                <td style="text-align: center;">38.13</td>
                 <td style="text-align: center;">50.33</td>
                 <td style="text-align: center;">40.70</td>
-                <td style="text-align: center;">41.97</td>
               </tr>
               <tr>
                 <td style="text-align: center;">ECLARE</td>
                 <td style="text-align: center;">38.80</td>
-                <td style="text-align: center;">33.42</td>
                 <td style="text-align: center;">63.41</td>
                 <td style="text-align: center;">35.21</td>
-                <td style="text-align: center;">34.25</td>
               </tr>
               <tr>
                 <td style="text-align: center;">DECAF</td>
                 <td style="text-align: center;">41.07</td>
-                <td style="text-align: center;">35.53</td>
                 <td style="text-align: center;">71.64</td>
                 <td style="text-align: center;">41.59</td>
-                <td style="text-align: center;">43.41</td>
               </tr>
               <tr>
                 <td style="text-align: center;">ANCE</td>
                 <td style="text-align: center;">46.44</td>
-                <td style="text-align: center;">35.47</td>
                 <td style="text-align: center;">63.33</td>
                 <td style="text-align: center;">41.16</td>
-                <td style="text-align: center;">44.87</td>
               </tr>
               <tr>
                 <td style="text-align: center;">DPR</td>
                 <td style="text-align: center;">44.64</td>
-                <td style="text-align: center;">43.30</td>
                 <td style="text-align: center;">62.63</td>
                 <td style="text-align: center;">41.66</td>
-                <td style="text-align: center;">43.30</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
+  </section> -->
+
+  <section class="section">
+    <div class="container is-centered has-text-centered">
+      <h2 class="title is-3">Effect of Auxiliary Parameters</h2>
+      <canvas id="recall-chart" style="width:100%; height:400px;"></canvas>
+      <p>
+        Performance of DEXA with number of auxiliary vectors on the proprietary SponsoredSearch-40M dataset. DEXA
+        yielded 7-15% gains over NGAME embeddings. Please note that K = 0 in the figure corresponds to NGAME. The
+        3-layer MiniLM-L3-v2 model could perform on par with a 6-layer DistilBERT model when both are augmented with K ≈
+        L/40 auxiliary vectors.
+      </p>
+    </div>
   </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Recall Chart
+      var recallCtx = document.getElementById('recall-chart').getContext('2d');
+      var recallChart = new Chart(recallCtx, {
+        type: 'line',
+        data: {
+          labels: [0.0, 0.1, 0.2, 0.5, 1.0],
+          datasets: [{
+            label: 'MiniLM-L3-v2',
+            data: [72.8, 80.7, 82.1, 82.6, 83.5],
+            backgroundColor: 'rgba(255, 165, 0, 0.2)',
+            borderColor: 'rgba(255, 165, 0, 1)',
+            borderWidth: 1,
+            fill: false,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBackgroundColor: 'orange'
+          }, {
+            label: 'DistilBERT-base',
+            data: [72.0, 84.0, 85.5, 86.5, 86.0],
+            backgroundColor: 'rgba(34, 139, 34, 0.2)',
+            borderColor: 'rgba(34, 139, 34, 1)',
+            borderWidth: 1,
+            fill: false,
+            pointStyle: 'triangle',
+            pointRadius: 5,
+            pointBackgroundColor: 'green'
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 70,
+              title: {
+                display: true,
+                text: 'Recall@200'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: '#Auxiliary vectors (K) (millions)'
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+
+
 
 
 
   <section class="section">
-    <div class="container is-max-desktop">
-
-
+    <div class="container is-centered has-text-centered">
       <section class="section">
         <div class="container">
-          <h2 class="title is-3">Correct and Incorrect Predictions: DEXA vs NGAME</h2>
+          <h2 class="title is-3">Example Predictions: DEXA vs NGAME</h2>
           <div class="columns is-centered">
             <div class="column">
               <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                <caption>Example is taken from the LF-WikiSeeAlso-320K dataset, which involves predicting relevant 'See
+                  Also' Wikipedia articles for given input texts.</caption>
                 <thead>
                   <tr>
                     <th style="width: 40%;">Document</th>
@@ -358,25 +522,43 @@
                     <td rowspan="2" style="vertical-align: top;">
                       <p><strong>Constitutional reforms of Julius Caesar:</strong> The constitutional reforms of Julius
                         Caesar were a series of laws pertaining to the Constitution of the Roman Republic enacted
-                        between 49 and 44 BC, during Caesar's dictatorship. Caesar died in 44 BC before the implications
-                        of his constitutional actions could ...</p>
+                        between 49 and 44 BC, during Caesar's dictatorship. Caesar died in 44 BC before the
+                        implications of his constitutional actions could ...</p>
                     </td>
                     <td style="vertical-align: top;">
-                      <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="color: green;">Acta Senatus</li>
-                        <li style="color: green;">Centuria</li>
-                        <li style="color: green;">Roman Law</li>
-                        <li style="color: green;">Interrex</li>
-                        <li style="color: green;">Byzantine Senate</li>
+                      <ul style="padding-left: 0;">
+                        <li class="correct" data-toggle="tooltip"
+                          title="Official Roman Senate records, pertinent to legislative reforms" style="color: green;">
+                          Acta Senatus</li>
+                        <li class="correct" data-toggle="tooltip"
+                          title="Roman military unit, relevant due to its role in governance" style="color: green;">
+                          Centuria</li>
+                        <li class="correct" data-toggle="tooltip"
+                          title="Legal system of ancient Rome, directly related to constitutional changes"
+                          style="color: green;">
+                          Roman Law</li>
+                        <li class="correct" data-toggle="tooltip"
+                          title="Temporary ruler during interregnum, significant in power transitions"
+                          style="color: green;">
+                          Interrex</li>
+                        <li class="correct" data-toggle="tooltip"
+                          title="Legislative body in the Byzantine Empire, reflecting governance continuity"
+                          style="color: green;">
+                          Byzantine Senate</li>
                       </ul>
                     </td>
                     <td style="vertical-align: top;">
-                      <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="color: red;">Julius Caesar</li>
-                        <li style="color: red;">Assassination of Julius Caesar</li>
-                        <li style="color: red;">Caesarism</li>
-                        <li style="color: red;">Constitution of the Roman Republic</li>
-                        <li style="color: red;">Caesar's civil war</li>
+                      <ul style="padding-left: 0;">
+                        <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction" style="color: red;">
+                          Julius Caesar</li>
+                        <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction" style="color: red;">
+                          Assassination of Julius Caesar</li>
+                        <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction" style="color: red;">
+                          Caesarism</li>
+                        <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction" style="color: red;">
+                          Constitution of the Roman Republic</li>
+                        <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction" style="color: red;">
+                          Caesar's civil war</li>
                       </ul>
                     </td>
                   </tr>
@@ -387,79 +569,126 @@
         </div>
       </section>
 
+      <style>
+        .correct:hover::before {
+          content: '✔ ';
+          color: green;
+        }
 
-
-
-
-      <section class="section">
-        <div class="container">
-          <h2 class="title is-3">Research Poster</h2>
-          <div class="columns is-centered">
-            <div class="column is-four-fifths">
-              <iframe id="pdf-frame" src="./static/docs/kdd_poster.pdf" width="100%" height="550px"
-                style="border: none;"></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
+        .incorrect:hover::before {
+          content: '✘ ';
+          color: red;
+        }
+      </style>
 
       <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          var iframe = document.getElementById("pdf-frame");
-          iframe.onload = function () {
-            iframe.style.height = iframe.contentWindow.document.documentElement.scrollHeight + 'px';
-          };
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function () {
+          var tooltipElements = document.querySelectorAll('[data-toggle="tooltip"]');
+          tooltipElements.forEach(function (elem) {
+            elem.addEventListener('mouseenter', function () {
+              var tooltip = document.createElement('div');
+              tooltip.className = 'tooltip';
+              tooltip.innerText = elem.getAttribute('title');
+              document.body.appendChild(tooltip);
+              var rect = elem.getBoundingClientRect();
+              tooltip.style.left = rect.left + window.scrollX + 'px';
+              tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 5 + 'px';
+            });
+
+            elem.addEventListener('mouseleave', function () {
+              var tooltip = document.querySelector('.tooltip');
+              if (tooltip) {
+                tooltip.remove();
+              }
+            });
+          });
         });
       </script>
+    </div>
+  </section>
 
 
 
-      <!-- Related Works. -->
+
+
+
+
+  <section class="section">
+    <div class="container is-centered has-text-centered">
+      <h2 class="title is-3">Research Poster</h2>
       <div class="columns is-centered">
-        <div class="column is-full-width">
-          <h2 class="title is-3">Related Works</h2>
-
-          <div class="content has-text-justified">
-            <p>
-              There are several excellent works related to our research.
-            </p>
-            <p>
-              <a href="https://arxiv.org/pdf/2207.04452.pdf">NGAME: Negative mining-aware mini-batching for extreme
-                classification</a> proposes a strategy for efficient negative sampling, enhancing the training process
-              and performance of extreme classification models.
-            </p>
-            <p>
-              <a href="http://manikvarma.org/pubs/dahiya21b.pdf">SiameseXML: Siamese networks meet extreme classifiers
-                with
-                100M labels</a> combines Siamese networks with extreme classification to handle massive label sets
-              efficiently, achieving state-of-the-art results.
-            </p>
-            <p>
-              <a href="https://arxiv.org/pdf/2111.06685">DeepXML: A Deep Extreme Multi-Label Learning Framework
-                Applied to Short Text Documents</a> introduces a framework for extreme multi-label learning,
-              specifically designed for short text documents, improving prediction accuracy.
-            </p>
-            <p>
-              <a href="http://manikvarma.org/pubs/mittal21-main.pdf">DECAF: Deep Extreme Classification with Label
-                Features</a>
-              utilizes label features to enhance deep extreme classification, providing a scalable solution for
-              large-scale datasets.
-            </p>
-            <p>
-              <a href="http://manikvarma.org/pubs/mittal21b.pdf">ECLARE: Extreme Classification with Label Graph
-                Correlations</a> explores the use of label graph correlations to improve extreme classification,
-              leveraging graph-based methods for better performance.
-            </p>
-            <p>
-              <a href="http://manikvarma.org/pubs/saini21.pdf">GalaXC: Graph Neural Networks with Labelwise Attention
-                for
-                Extreme Classification</a> applies graph neural networks with labelwise attention mechanisms to extreme
-              classification, addressing scalability and accuracy challenges.
-            </p>
-          </div>
+        <div class="column is-four-fifths">
+          <iframe id="pdf-frame" src="./static/docs/kdd_poster.pdf" width="100%" height="550px"
+            style="border: none;"></iframe>
         </div>
       </div>
-      <!--/ Related Works. -->
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var iframe = document.getElementById("pdf-frame");
+      iframe.onload = function () {
+        iframe.style.height = iframe.contentWindow.document.documentElement.scrollHeight + 'px';
+      };
+    });
+  </script>
+
+
+  <section class="section">
+    <!-- Related Works. -->
+    <div class="container is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Works and Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Thanks to Dr. Manish Gupta for the beautiful explanation of our work on his <a
+              href="https://www.youtube.com/@dlByManish">YouTube Channel</a>. The video is available <a
+              href="https://www.youtube.com/watch?v=h-NAJBkTN-w">here</a>.
+          </p>
+          <p></p>
+          <p>
+            There are several excellent works related to our research.
+          </p>
+          <p>
+            <a href="https://arxiv.org/pdf/2207.04452.pdf">NGAME: Negative mining-aware mini-batching for extreme
+              classification</a> proposes a strategy for efficient negative sampling, enhancing the training process
+            and performance of extreme classification models.
+          </p>
+          <p>
+            <a href="http://manikvarma.org/pubs/dahiya21b.pdf">SiameseXML: Siamese networks meet extreme classifiers
+              with
+              100M labels</a> combines Siamese networks with extreme classification to handle massive label sets
+            efficiently, achieving state-of-the-art results.
+          </p>
+          <p>
+            <a href="https://arxiv.org/pdf/2111.06685">DeepXML: A Deep Extreme Multi-Label Learning Framework
+              Applied to Short Text Documents</a> introduces a framework for extreme multi-label learning,
+            specifically designed for short text documents, improving prediction accuracy.
+          </p>
+          <p>
+            <a href="http://manikvarma.org/pubs/mittal21-main.pdf">DECAF: Deep Extreme Classification with Label
+              Features</a>
+            utilizes label features to enhance deep extreme classification, providing a scalable solution for
+            large-scale datasets.
+          </p>
+          <p>
+            <a href="http://manikvarma.org/pubs/mittal21b.pdf">ECLARE: Extreme Classification with Label Graph
+              Correlations</a> explores the use of label graph correlations to improve extreme classification,
+            leveraging graph-based methods for better performance.
+          </p>
+          <p>
+            <a href="http://manikvarma.org/pubs/saini21.pdf">GalaXC: Graph Neural Networks with Labelwise Attention
+              for
+              Extreme Classification</a> applies graph neural networks with labelwise attention mechanisms to extreme
+            classification, addressing scalability and accuracy challenges.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Related Works. -->
 
 
     </div>
