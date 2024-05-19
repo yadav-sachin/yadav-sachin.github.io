@@ -58,7 +58,7 @@
                 <a href="https://www.cse.iitk.ac.in/users/purushot/about.php">Purushottam Kar</a><sup>4</sup>,
               </span>
               <span class="author-block">
-                <a href="mailto:manik@microsoft.com">Manik Varma</a><sup>2</sup>
+                <a href="http://manikvarma.org/">Manik Varma</a><sup>2</sup>
               </span>
             </div>
 
@@ -118,72 +118,6 @@
       </div>
     </div>
   </section>
-
-  <!-- <section class="hero teaser">
-    <div class="container is-max-desktop">
-      <div class="hero-body">
-        <video id="teaser" autoplay muted loop playsinline height="100%">
-          <source src="./static/videos/teaser.mp4" type="video/mp4">
-        </video>
-        <h2 class="subtitle has-text-centered">
-          <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-          free-viewpoint
-          portraits.
-        </h2>
-      </div>
-    </div>
-  </section> -->
-
-
-  <!-- <section class="hero is-light is-small">
-    <div class="hero-body">
-      <div class="container">
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item item-steve">
-            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/steve.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item item-chair-tp">
-            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/chair-tp.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item item-shiba">
-            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/shiba.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item item-fullbody">
-            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/fullbody.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item item-blueshirt">
-            <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/blueshirt.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item item-mask">
-            <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/mask.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item item-coffee">
-            <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/coffee.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item item-toby">
-            <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/toby2.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
-
 
   <section class="section">
     <div class="container is-max-desktop">
@@ -245,43 +179,43 @@
 
   <section>
     <div class="container is-centered has-text-centered">
-        <h2 class="title is-3">Method Overview</h2>
-        <div class="content has-text-justified">
-          <p>
-            DEXA introduces a novel approach to addressing the semantic gap in Extreme Classification (XC) applications,
-            especially those involving short-text data points and labels. Traditional XC methods often suffer from
-            suboptimal encoder training due to the modular approach where the encoder and classifier are trained
-            separately. DEXA addresses this by incorporating shared auxiliary parameters during encoder training,
-            significantly improving the embedding quality and subsequent classification performance.
-          </p>
-          <p>
-            The core idea behind DEXA is that "related" labels likely have similar correction terms. Instead of
-            assigning individual correction terms to each label, DEXA clusters labels into groups, each represented by a
-            shared auxiliary vector. During training, these auxiliary vectors help adjust the label embeddings, ensuring
-            that the encoder captures the nuanced relationships between related labels without overfitting to specific
-            label texts. This clustering approach reduces computational overhead and enhances scalability, allowing DEXA
-            to perform effectively on datasets with millions of labels.
-          </p>
-          <p>
-            DEXA's architecture involves two key modules:
-          </p>
-          <ul>
-            <li>
-              <b>Module I: Encoder Training with Auxiliary Vectors</b> - Labels are clustered, and each cluster is
-              assigned an auxiliary vector. The encoder is trained to embed data points and label clusters into a shared
-              space, leveraging these auxiliary vectors to bridge the semantic gap.
-            </li>
-            <li>
-              <b>Module II: Classifier Training</b> - The encoder is frozen, and label classifiers are initialized with
-              the augmented label embeddings. These classifiers are then fine-tuned to achieve high accuracy in
-              predicting the relevant labels for given data points.
-            </li>
-          </ul>
-          <p>
-            This approach enables DEXA to outperform existing XC methods, providing significant gains in
-            prediction accuracy while maintaining computational efficiency.
-          </p>
-        </div>
+      <h2 class="title is-3">Method Overview</h2>
+      <div class="content has-text-justified">
+        <p>
+          DEXA introduces a novel approach to addressing the semantic gap in Extreme Classification (XC) applications,
+          especially those involving short-text data points and labels. Traditional XC methods often suffer from
+          suboptimal encoder training due to the modular approach where the encoder and classifier are trained
+          separately. DEXA addresses this by incorporating shared auxiliary parameters during encoder training,
+          significantly improving the embedding quality and subsequent classification performance.
+        </p>
+        <p>
+          The core idea behind DEXA is that "related" labels likely have similar correction terms. Instead of
+          assigning individual correction terms to each label, DEXA clusters labels into groups, each represented by a
+          shared auxiliary vector. During training, these auxiliary vectors help adjust the label embeddings, ensuring
+          that the encoder captures the nuanced relationships between related labels without overfitting to specific
+          label texts. This clustering approach reduces computational overhead and enhances scalability, allowing DEXA
+          to perform effectively on datasets with millions of labels.
+        </p>
+        <p>
+          DEXA's architecture involves two key modules:
+        </p>
+        <ul>
+          <li>
+            <b>Module I: Encoder Training with Auxiliary Vectors</b> - Labels are clustered, and each cluster is
+            assigned an auxiliary vector. The encoder is trained to embed data points and label clusters into a shared
+            space, leveraging these auxiliary vectors to bridge the semantic gap.
+          </li>
+          <li>
+            <b>Module II: Classifier Training</b> - The encoder is frozen, and label classifiers are initialized with
+            the augmented label embeddings. These classifiers are then fine-tuned to achieve high accuracy in
+            predicting the relevant labels for given data points.
+          </li>
+        </ul>
+        <p>
+          This approach enables DEXA to outperform existing XC methods, providing significant gains in
+          prediction accuracy while maintaining computational efficiency.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -350,7 +284,11 @@
           options: {
             scales: {
               y: {
-                beginAtZero: true
+                beginAtZero: true,
+                title: {
+                display: true,
+                text: 'Recall@200'
+              }
               }
             }
           }
@@ -361,72 +299,6 @@
     });
   </script>
 
-
-
-  <!-- <section class="section">
-    <div class="container is-centered has-text-centered">
-      <h2 class="title is-3">Improved Encoder Training</h2>
-      <h3><b>P@1 Values for Different Methods and Benchmarks</b></h3>
-      <div class="columns is-centered">
-        <div class="column">
-          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th style="text-align: center;">Method</th>
-                <th style="text-align: center;">LF-AmazonTitles-1.3M</th>
-                <th style="text-align: center;">LF-Wikipedia-500K</th>
-                <th style="text-align: center;">LF-WikiSeeAlso-320K</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="text-align: center; color: green; font-weight: bold;">DEXA</td>
-                <td style="text-align: center; color: green; font-weight: bold;">51.92</td>
-                <td style="text-align: center; color: green; font-weight: bold;">79.99</td>
-                <td style="text-align: center; color: green; font-weight: bold;">46.57</td>
-              </tr>
-              <tr>
-                <td style="text-align: center;">NGAME</td>
-                <td style="text-align: center;">45.82</td>
-                <td style="text-align: center;">77.92</td>
-                <td style="text-align: center;">43.58</td>
-              </tr>
-              <tr>
-                <td style="text-align: center;">SiameseXML</td>
-                <td style="text-align: center;">43.80</td>
-                <td style="text-align: center;">50.33</td>
-                <td style="text-align: center;">40.70</td>
-              </tr>
-              <tr>
-                <td style="text-align: center;">ECLARE</td>
-                <td style="text-align: center;">38.80</td>
-                <td style="text-align: center;">63.41</td>
-                <td style="text-align: center;">35.21</td>
-              </tr>
-              <tr>
-                <td style="text-align: center;">DECAF</td>
-                <td style="text-align: center;">41.07</td>
-                <td style="text-align: center;">71.64</td>
-                <td style="text-align: center;">41.59</td>
-              </tr>
-              <tr>
-                <td style="text-align: center;">ANCE</td>
-                <td style="text-align: center;">46.44</td>
-                <td style="text-align: center;">63.33</td>
-                <td style="text-align: center;">41.16</td>
-              </tr>
-              <tr>
-                <td style="text-align: center;">DPR</td>
-                <td style="text-align: center;">44.64</td>
-                <td style="text-align: center;">62.63</td>
-                <td style="text-align: center;">41.66</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
   <section class="section">
     <div class="container is-centered has-text-centered">
@@ -440,7 +312,7 @@
       </p>
     </div>
   </section>
-
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -449,10 +321,17 @@
       var recallChart = new Chart(recallCtx, {
         type: 'line',
         data: {
-          labels: [0.0, 0.1, 0.2, 0.5, 1.0],
+          labels: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],  // X-axis ticks at intervals of 0.2
           datasets: [{
             label: 'MiniLM-L3-v2',
-            data: [72.8, 80.7, 82.1, 82.6, 83.5],
+            data: [
+              {x: 0.000, y: 70.8},
+              {x: 0.065, y: 80.7},
+              {x: 0.131, y: 82.1},
+              {x: 0.262, y: 82.6},
+              {x: 0.524, y: 82.4},
+              {x: 1.048, y: 86.0}
+            ],
             backgroundColor: 'rgba(255, 165, 0, 0.2)',
             borderColor: 'rgba(255, 165, 0, 1)',
             borderWidth: 1,
@@ -462,7 +341,14 @@
             pointBackgroundColor: 'orange'
           }, {
             label: 'DistilBERT-base',
-            data: [72.0, 84.0, 85.5, 86.5, 86.0],
+            data: [
+              {x: 0.000, y: 74.3},
+              {x: 0.065, y: 81.2},
+              {x: 0.131, y: 84.8},
+              {x: 0.262, y: 86.1},
+              {x: 0.524, y: 86.6},
+              {x: 1.048, y: 86.6}
+            ],
             backgroundColor: 'rgba(34, 139, 34, 0.2)',
             borderColor: 'rgba(34, 139, 34, 1)',
             borderWidth: 1,
@@ -486,6 +372,14 @@
               title: {
                 display: true,
                 text: '#Auxiliary vectors (K) (millions)'
+              },
+              type: 'linear',
+              position: 'bottom',
+              ticks: {
+                stepSize: 0.2,
+                callback: function(value, index, values) {
+                  return value.toFixed(1);
+                }
               }
             }
           }
@@ -493,6 +387,8 @@
       });
     });
   </script>
+  
+  
 
 
 
