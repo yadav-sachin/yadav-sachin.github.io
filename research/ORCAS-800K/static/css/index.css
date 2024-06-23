@@ -4,6 +4,56 @@ body {
 
 /* Add this to your index.css file or within a <style> tag in your HTML */
 
+/* Style the navbar */
+.navbar {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the hero section */
+.hero.is-fullheight {
+  position: relative;
+}
+
+/* Fixed bottom navbar */
+.navbar.is-fixed-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Transparent navbar with better visibility */
+.navbar.is-transparent {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Center navbar items */
+.navbar-center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Dark outline for navbar text */
+.navbar-item {
+  color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.8); /* Add border for contrast */
+  border-radius: 5px;
+  margin: 5px;
+  padding: 0.5rem 1rem;
+}
+
+/* Hover effect for navbar items */
+.navbar-item:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Change background shade on hover */
+  color: #fff; /* Change text color on hover */
+  border: 1px solid rgba(0, 0, 0, 0.3); /* Change border color on hover */
+}
+
+/* Style for the hero section */
+.hero.is-fullheight {
+  position: relative;
+}
+
 .hero.is-info.is-bold {
   position: relative;
 }
@@ -217,6 +267,43 @@ body {
 }
 
 
+#terms-and-conditions .content {
+  margin: 0 auto;
+  text-align: left;
+}
+
+#terms-and-conditions h2 {
+  margin-bottom: 20px;
+}
+
+#terms-and-conditions p {
+  margin-bottom: 15px;
+}
+
+#terms-and-conditions p em {
+  display: block;
+  margin-bottom: 10px;
+  font-style: italic;
+  color: #666;
+}
+
+#terms-and-conditions p strong {
+  font-weight: bold;
+}
+
+#terms-and-conditions blockquote {
+  padding: 10px 20px;
+  margin: 20px 0;
+  border-left: 5px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+#terms-and-conditions blockquote p {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+
 
 .interpolation-panel {
   background: #f5f5f5;
@@ -245,3 +332,42 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+#dataset-statistics .container {
+  margin: 0 auto;
+}
+
+#dataset-statistics h2 {
+  margin-bottom: 20px;
+}
+
+#dataset-statistics .table-container {
+  overflow-x: auto;
+}
+
+#dataset-statistics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+#dataset-statistics-table th, #dataset-statistics-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+#dataset-statistics-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+#dataset-statistics-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#dataset-statistics-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+
