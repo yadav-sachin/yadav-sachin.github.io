@@ -23,23 +23,36 @@
     <script src="./static/js/bulma-carousel.min.js"></script>
     <script src="./static/js/bulma-slider.min.js"></script>
     <script src="./static/js/index.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 </head>
 
 <body>
 
 
     <!-- New Section for Top Banner -->
-    <section class="hero is-fullheight is-info is-bold"
-        style="background-image: url('./static/images/background.webp'); background-size: cover;">
-        <div class="hero-body" style="align-items: flex-end;">
-            <div class="container has-text-centered">
-                <div class="box" style="background-color: rgba(255, 255, 255, 0.9);">
-                    <h1 class="title has-text-dark">ORCAS-800K</h1>
-                    <h2 class="subtitle has-text-dark">A Benchmark for Extreme Multi-Label Classification Research</h2>
-                    <a href="#" class="button is-primary is-medium">View Examples</a>
-                    <!-- space -->
-
-                    <a href="#" class="button is-link is-medium">Download Dataset</a>
+    <section class="hero is-fullheight is-info is-bold" style="background-image: url('./static/images/background.webp'); background-size: cover;">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-vcentered">
+                    <div class="column">
+                        <div class="box" style="background-color: rgba(255, 255, 255, 0.9);">
+                            <h1 class="title has-text-dark">ORCAS-800K</h1>
+                            <h2 class="subtitle has-text-dark">A Benchmark for Extreme Multi-Label Classification Research</h2>
+                            <div class="buttons">
+                                <a href="#examples-section" class="button is-primary is-medium">View Examples</a>
+                                <a href="#" class="button is-link is-medium">Download Dataset</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,377 +69,126 @@
                 and the requirement for high precision and recall.
             </p>
 
-            <h2 class="subtitle">Predicting URLs for Search Queries</h2>
+            <h2 class="subtitle" style="font-size: 2rem;">Predicting URLs for Search Queries</h2>
             <p class="content">
                 The ORCAS-800K benchmark is designed to address the task of predicting URLs for given search queries.
                 This involves understanding the context of the search query and mapping it to the most relevant URLs
                 from a large database. Accurate URL prediction is critical for enhancing the effectiveness of search
                 engines, improving user satisfaction, and ensuring relevant information retrieval.
             </p>
-            <p class="content">
-                To view some examples, please go to the <a href="#" class="has-text-link">visualization</a> page. For a
-                full description of the methodology used to create the corpus, see <a href="#"
-                    class="has-text-link">ORCAS-800K: A Benchmark for Extreme Classification Research</a>.
-            </p>
         </div>
     </section>
 
-    <section>
+    <section class="section" id="examples-section">
         <div class="container is-centered has-text-centered">
-            <h2 class="title is-3">Extreme Multi-Label Classification</h2>
-            <div class="content has-text-justified">
-                <p>
-                    DEXA introduces a novel approach to addressing the semantic gap in Extreme Classification (XC)
-                    applications,
-                    especially those involving short-text data points and labels. Traditional XC methods often suffer
-                    from
-                    suboptimal encoder training due to the modular approach where the encoder and classifier are trained
-                    separately. DEXA addresses this by incorporating shared auxiliary parameters during encoder
-                    training,
-                    significantly improving the embedding quality and subsequent classification performance.
-                </p>
-                <p>
-                    The core idea behind DEXA is that "related" labels likely have similar correction terms. Instead of
-                    assigning individual correction terms to each label, DEXA clusters labels into groups, each
-                    represented by a
-                    shared auxiliary vector. During training, these auxiliary vectors help adjust the label embeddings,
-                    ensuring
-                    that the encoder captures the nuanced relationships between datapoints and labels without
-                    overfitting to
-                    label texts. This clustering approach reduces computational overhead and enhances scalability,
-                    allowing DEXA
-                    to perform effectively on datasets with millions of labels.
-                </p>
-                <p>
-                    DEXA's architecture involves two key modules:
-                </p>
-                <ul>
-                    <li>
-                        <b>Module I: Encoder Training with Auxiliary Vectors</b> - Labels are clustered, and each
-                        cluster is
-                        assigned an auxiliary vector. The encoder is trained to embed data points and augmented labels
-                        into a shared
-                        space, leveraging these auxiliary vectors to bridge the semantic gap.
-                    </li>
-                    <li>
-                        <b>Module II: Classifier Training</b> - The encoder is frozen, and label classifiers are
-                        initialized with
-                        the augmented label embeddings. These classifiers are then fine-tuned to achieve high accuracy
-                        in
-                        predicting the relevant labels for given data points.
-                    </li>
-                </ul>
-                <p>
-                    This approach enables DEXA to outperform existing XC methods, providing significant gains in
-                    prediction accuracy while maintaining computational efficiency.
-                </p>
+            <h2 class="title is-3">Examples [Search Queries and Associated URLs]</h2>
+            <div class="table-container">
+                <table id="query-table" class="display">
+                    <thead>
+                        <tr>
+                            <th>Search Query</th>
+                            <th>Associated URLs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pernambuco brazil</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://en.wikipedia.org/wiki/Pernambuco" target="_blank">en.wikipedia.org/wiki/Pernambuco</a></li>
+                                    <li><a href="https://www.britannica.com/place/Pernambuco" target="_blank">www.britannica.com/place/Pernambuco</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>minecraft fishing</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://minecraft.gamepedia.com/Enchanting" target="_blank">minecraft.gamepedia.com Enchanting</a></li>
+                                    <li><a href="https://www.digminecraft.com/getting_started/how_to_fish.php" target="_blank">www.digminecraft.com getting_started/how_to_fish.php</a></li>
+                                    <li><a href="https://www.minecraft101.net/g/fishing.html" target="_blank">www.minecraft101.net g/fishing.html</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>how long does it take for flu symptoms</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://www.cdc.gov/flu/takingcare.htm" target="_blank">www.cdc.gov flu/takingcare.htm</a></li>
+                                    <li><a href="https://www.healthcentral.com/article/long-does-flu-symptoms-appear-exposure-flu" target="_blank">www.healthcentral.com article/long-does-flu-symptoms-appear-exposure-flu</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>passport verification online</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://passportindia.gov.in/AppOnlineProject/statusTracker/trackStatusInpNew" target="_blank">passportindia.gov.in AppOnlineProject/statusTracker/trackStatusInpNew</a></li>
+                                    <li><a href="https://www.quora.com/How-do-I-check-if-a-passport-number-is-fake" target="_blank">www.quora.com How-do-I-check-if-a-passport-number-is-fake</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>definition of dental caries</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://en.wikipedia.org/wiki/Dental_caries" target="_blank">en.wikipedia.org wiki/Dental_caries</a></li>
+                                    <li><a href="https://www.dictionary.com/browse/dental-caries" target="_blank">www.dictionary.com browse/dental-caries</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>upper left stomach pain</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://patient.info/doctor/left-upper-quadrant-pain" target="_blank">patient.info doctor/left-upper-quadrant-pain</a></li>
+                                    <li><a href="https://www.healthhype.com/acute-and-chronic-left-upper-luq-abdominal-pain-diagnosis.html" target="_blank">www.healthhype.com acute-and-chronic-left-upper-luq-abdominal-pain-diagnosis.html</a></li>
+                                    <li><a href="https://www.mayoclinic.org/symptoms/abdominal-pain/basics/causes/SYM-20050728" target="_blank">www.mayoclinic.org symptoms/abdominal-pain/basics/causes/SYM-20050728</a></li>
+                                    <li><a href="https://www.md-health.com/Upper-Left-Abdominal-Pain.html" target="_blank">www.md-health.com Upper-Left-Abdominal-Pain.html</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>what is a folklore</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://en.wikipedia.org/wiki/Folklore" target="_blank">en.wikipedia.org wiki/Folklore</a></li>
+                                    <li><a href="https://www.afsnet.org/page/WhatIsFolklore" target="_blank">www.afsnet.org page=WhatIsFolklore</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>binary convert</td>
+                            <td>
+                                <ul>
+                                    <li><a href="https://acc6.its.brooklyn.cuny.edu/%7Egurwitz/core5/nav2tool.html" target="_blank">acc6.its.brooklyn.cuny.edu %7Egurwitz/core5/nav2tool.html</a></li>
+                                    <li><a href="https://www.binaryconvert.com" target="_blank">www.binaryconvert.com</a></li>
+                                    <li><a href="https://www.calculator.net/binary-calculator.html" target="_blank">www.calculator.net binary-calculator.html</a></li>
+                                    <li><a href="https://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html" target="_blank">www.mathsisfun.com binary-decimal-hexadecimal-converter.html</a></li>
+                                    <li><a href="https://www.unit-conversion.info/texttools/convert-text-to-binary/" target="_blank">www.unit-conversion.info texttools/convert-text-to-binary/</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
-
-
-    <section class="section">
-        <div class="container is-centered has-text-centered">
-            <h2 class="title is-3">Improved Encoder Training</h2>
-            <h3><b>Precision@1 Values for Different Methods and Benchmarks</b></h3>
-            <canvas id="encoder-training-chart" style="width:100%; height:400px;"></canvas>
-        </div>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var ctx = document.getElementById('encoder-training-chart').getContext('2d');
-            if (ctx) {
-                var chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['LF-AmazonTitles-1.3M', 'LF-Wikipedia-500K', 'LF-WikiSeeAlso-320K'],
-                        datasets: [{
-                            label: 'DEXA',
-                            data: [51.92, 79.99, 46.57],
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
-                        }, {
-                            label: 'NGAME',
-                            data: [45.82, 77.92, 43.58],
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            borderWidth: 1
-                        }, {
-                            label: 'SiameseXML',
-                            data: [43.80, 50.33, 40.70],
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            borderColor: 'rgba(255, 206, 86, 1)',
-                            borderWidth: 1
-                        }, {
-                            label: 'ECLARE',
-                            data: [38.80, 63.41, 35.21],
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }, {
-                            label: 'DECAF',
-                            data: [41.07, 71.64, 41.59],
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 1
-                        }, {
-                            label: 'ANCE',
-                            data: [46.44, 63.33, 41.16],
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            borderWidth: 1
-                        }, {
-                            label: 'DPR',
-                            data: [44.64, 62.63, 41.66],
-                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                            borderColor: 'rgba(255, 159, 64, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Precision@1'
-                                }
-                            }
-                        }
-                    }
-                });
-            } else {
-                console.error('Unable to get context for encoder-training-chart');
-            }
-        });
-    </script>
-
-
-    <section class="section">
-        <div class="container is-centered has-text-centered">
-            <h2 class="title is-3">Effect of Auxiliary Parameters</h2>
-            <canvas id="recall-chart" style="width:100%; height:400px;"></canvas>
-            <p>
-                Performance of DEXA with number of auxiliary vectors on the proprietary SponsoredSearch-40M dataset.
-                DEXA
-                yielded 7-15% gains over NGAME embeddings. Please note that K = 0 in the figure corresponds to NGAME.
-                The
-                3-layer MiniLM-L3-v2 model could perform on par with a 6-layer DistilBERT model when both are augmented
-                with K ≈
-                L/40 auxiliary vectors.
-            </p>
-        </div>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Recall Chart
-            var recallCtx = document.getElementById('recall-chart').getContext('2d');
-            var recallChart = new Chart(recallCtx, {
-                type: 'line',
-                data: {
-                    labels: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],  // X-axis ticks at intervals of 0.2
-                    datasets: [{
-                        label: 'MiniLM-L3-v2',
-                        data: [
-                            { x: 0.000, y: 71.0 },
-                            { x: 0.065, y: 80.7 },
-                            { x: 0.131, y: 82.0 },
-                            { x: 0.262, y: 82.7 },
-                            { x: 0.524, y: 82.5 },
-                            { x: 1.048, y: 86.0 }
-                        ],
-                        backgroundColor: 'rgba(255, 165, 0, 0.2)',
-                        borderColor: 'rgba(255, 165, 0, 1)',
-                        borderWidth: 1,
-                        fill: false,
-                        pointStyle: 'circle',
-                        pointRadius: 5,
-                        pointBackgroundColor: 'orange'
-                    }, {
-                        label: 'DistilBERT-base',
-                        data: [
-                            { x: 0.000, y: 74.6 },
-                            { x: 0.065, y: 81.4 },
-                            { x: 0.131, y: 84.8 },
-                            { x: 0.262, y: 86.1 },
-                            { x: 0.524, y: 86.8 },
-                            { x: 1.048, y: 86.8 }
-                        ],
-                        backgroundColor: 'rgba(34, 139, 34, 0.2)',
-                        borderColor: 'rgba(34, 139, 34, 1)',
-                        borderWidth: 1,
-                        fill: false,
-                        pointStyle: 'triangle',
-                        pointRadius: 5,
-                        pointBackgroundColor: 'green'
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            min: 70,
-                            title: {
-                                display: true,
-                                text: 'Recall@200'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: '#Auxiliary vectors (K) (millions)'
-                            },
-                            type: 'linear',
-                            position: 'bottom',
-                            ticks: {
-                                stepSize: 0.2,
-                                callback: function (value, index, values) {
-                                    return value.toFixed(1);
-                                }
-                            }
-                        }
-                    }
-                }
+        $(document).ready(function () {
+            $('#query-table').DataTable({
+                "searching": true,
+                "info": true,
+                "responsive": true,
+                "columns": [
+                    { "searchable": true, "orderable": false },
+                    { "searchable": true, "orderable": false }
+                ]
             });
         });
     </script>
-
-
-
-
-
-
-
-    <section class="section">
-        <div class="container is-centered has-text-centered">
-            <section class="section">
-                <div class="container">
-                    <h2 class="title is-3">Example Predictions: DEXA vs NGAME</h2>
-                    <div class="columns is-centered">
-                        <div class="column">
-                            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
-                                <caption>Example is taken from the LF-WikiSeeAlso-320K dataset, which involves
-                                    predicting relevant 'See
-                                    Also' Wikipedia articles for given input texts.</caption>
-                                <thead>
-                                    <tr>
-                                        <th style="width: 40%;">Document</th>
-                                        <th style="width: 30%;">DEXA Predictions</th>
-                                        <th style="width: 30%;">NGAME Predictions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td rowspan="2" style="vertical-align: top;">
-                                            <p><strong>Constitutional reforms of Julius Caesar:</strong> The
-                                                constitutional reforms of Julius
-                                                Caesar were a series of laws pertaining to the Constitution of the Roman
-                                                Republic enacted
-                                                between 49 and 44 BC, during Caesar's dictatorship. Caesar died in 44 BC
-                                                before the
-                                                implications of his constitutional actions could ...</p>
-                                        </td>
-                                        <td style="vertical-align: top;">
-                                            <ul style="padding-left: 0;">
-                                                <li class="correct" data-toggle="tooltip"
-                                                    title="Official Roman Senate records, pertinent to legislative reforms"
-                                                    style="color: green;">
-                                                    Acta Senatus</li>
-                                                <li class="correct" data-toggle="tooltip"
-                                                    title="Roman military unit, relevant due to its role in governance"
-                                                    style="color: green;">
-                                                    Centuria</li>
-                                                <li class="correct" data-toggle="tooltip"
-                                                    title="Legal system of ancient Rome, directly related to constitutional changes"
-                                                    style="color: green;">
-                                                    Roman Law</li>
-                                                <li class="correct" data-toggle="tooltip"
-                                                    title="Temporary ruler during interregnum, significant in power transitions"
-                                                    style="color: green;">
-                                                    Interrex</li>
-                                                <li class="correct" data-toggle="tooltip"
-                                                    title="Legislative body in the Byzantine Empire, reflecting governance continuity"
-                                                    style="color: green;">
-                                                    Byzantine Senate</li>
-                                            </ul>
-                                        </td>
-                                        <td style="vertical-align: top;">
-                                            <ul style="padding-left: 0;">
-                                                <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction"
-                                                    style="color: red;">
-                                                    Julius Caesar</li>
-                                                <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction"
-                                                    style="color: red;">
-                                                    Assassination of Julius Caesar</li>
-                                                <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction"
-                                                    style="color: red;">
-                                                    Caesarism</li>
-                                                <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction"
-                                                    style="color: red;">
-                                                    Constitution of the Roman Republic</li>
-                                                <li class="incorrect" data-toggle="tooltip" title="Incorrect Prediction"
-                                                    style="color: red;">
-                                                    Caesar's civil war</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <style>
-                .correct:hover::before {
-                    content: '✔ ';
-                    color: green;
-                }
-
-                .incorrect:hover::before {
-                    content: '✘ ';
-                    color: red;
-                }
-            </style>
-
-            <script>
-                // Initialize tooltips
-                document.addEventListener('DOMContentLoaded', function () {
-                    var tooltipElements = document.querySelectorAll('[data-toggle="tooltip"]');
-                    tooltipElements.forEach(function (elem) {
-                        elem.addEventListener('mouseenter', function () {
-                            var tooltip = document.createElement('div');
-                            tooltip.className = 'tooltip';
-                            tooltip.innerText = elem.getAttribute('title');
-                            document.body.appendChild(tooltip);
-                            var rect = elem.getBoundingClientRect();
-                            tooltip.style.left = rect.left + window.scrollX + 'px';
-                            tooltip.style.top = rect.top + window.scrollY - tooltip.offsetHeight - 5 + 'px';
-                        });
-
-                        elem.addEventListener('mouseleave', function () {
-                            var tooltip = document.querySelector('.tooltip');
-                            if (tooltip) {
-                                tooltip.remove();
-                            }
-                        });
-                    });
-                });
-            </script>
-        </div>
-    </section>
-
-
-
-
-
-
-
+    
     <section class="section">
         <div class="container is-centered has-text-centered">
             <h2 class="title is-3">Research Poster</h2>

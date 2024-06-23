@@ -19,14 +19,40 @@ body {
   z-index: 1;
 }
 
+.title.has-text-dark {
+  font-size: 3rem; /* Adjust the size as needed */
+  margin-bottom: 2rem; /* Add spacing below the title */
+}
+
+.subtitle.has-text-dark {
+  font-size: 1.25rem;
+  margin-top: 1rem; /* Add spacing above the subtitle */
+}
+
+
+.hero-body {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /* Centers the content vertically */
+  height: 100%;
+}
+
 .hero-body .container {
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center; /* Centers the content vertically within the container */
+  height: 100%;
 }
 
 .box {
   padding: 2rem;
+  width: 80%; /* Increase the width to 80% */
+  max-width: 1000px; /* Set a maximum width for better responsiveness */
+  margin: auto; /* Centers the box */
 }
+
+
 
 
 
@@ -153,6 +179,43 @@ body {
 .results-carousel video {
   margin: 0;
 }
+
+.table-container {
+  overflow-x: auto;
+}
+
+#query-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+#query-table th, #query-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+#query-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+}
+
+#query-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+#query-table a {
+  color: #3273dc;
+  text-decoration: none;
+}
+
+#query-table a:hover {
+  text-decoration: underline;
+}
+
 
 
 .interpolation-panel {
