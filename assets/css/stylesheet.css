@@ -1,0 +1,127 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #444;
+    font-size: 0.9rem;
+    background-color:#fbfbfb;
+}
+
+.name {
+    font-size: 2.0rem;
+    color: #333;
+}
+
+.sideimg {
+    width: 110%;
+    border: 1px solid #ccc;
+}
+
+.institution {
+    font-size: 12px;
+    color: #444;
+}
+
+.years {
+    font-size: 11px;
+    color: #888;
+}
+
+.instilogo {
+    height: 50px;
+}
+
+a {
+    color: #003d83;
+    font-weight: 400;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #1f62cc;
+    transition: 0.2s;
+}
+
+.about {
+    font-size: 1rem;
+}
+
+.header-1 {
+    font-size: 1.8rem;
+    color: #444;
+}
+
+.thisauthor {
+    color: #006400; 
+    text-decoration: underline;
+}
+
+.noter {
+    font-size: 9pt;
+}
+
+.tagsep {
+    padding: 4px;
+}
+
+.tag {
+    color: #444;
+    border: 1px solid rgb(155, 155, 155);
+    padding: 2px 4px;
+    border-radius: 3px;
+    margin: 0px 1px;
+    font-size: 90%;
+    background-color: rgba(88, 88, 88, 0.05);
+}
+
+.papertitle {
+    font-weight: 400;
+}
+
+.menulink {
+    color: #002147;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.menulink:hover {
+    color: #1f62cc;
+    transition: 0.2s;
+}
+
+.profilepic {
+    width: 230px;
+}
+
+@media (min-width: 768px) {
+    .fixed-posi {
+        position: fixed;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .allstuff {
+        padding-top: 0px !important;
+    }
+
+    .allstuffp {
+        padding-top: 0px !important;
+    }
+
+    .profilepic {
+        width: 350px;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    .menur {
+        padding-top: 18px !important;
+    }
+
+    .sideimg {
+        display: none;
+    }
+
+    .paper {
+        border-left: 1px solid #ddd;
+    }
+}
