@@ -3,13 +3,22 @@ body {
     font-weight: 300;
     color: #444;
     font-size: 0.9rem;
-    background-color:#fbfbfb;
+    /* background-color:#fbfbfb; */
+    background-color: #F4F5F1;
 }
 
+/* Updated Name Styling */
 .name {
-    font-size: 2.0rem;
+    font-size: 1.5rem;
     color: #333;
+    font-family: Amsterdam, sans-serif;
+    margin-bottom: 40px; /* Add space below the name */
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: 2px;
 }
+/* End of Name Styling */
+
 
 .sideimg {
     width: 110%;
@@ -92,6 +101,17 @@ a:hover {
     width: 230px;
 }
 
+#email a {
+    color: #1772d0;
+    text-decoration: none;
+}
+
+#email a:hover {
+    color: #f09228;
+    text-decoration: underline;
+}
+
+
 @media (min-width: 768px) {
     .fixed-posi {
         position: fixed;
@@ -125,3 +145,69 @@ a:hover {
         border-left: 1px solid #ddd;
     }
 }
+
+/* Affiliations Section */
+.affiliations {
+    padding: 30px 0; /* Slightly increased padding */
+  }
+  
+  .affiliations-container-small {
+    max-width: 800px; /* Constrain the width */
+    margin: 0 auto;
+    text-align: center; /* Center the content */
+  }
+  
+  .affiliations-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Increased gap between items */
+  }
+  
+  .affiliation-item {
+    flex: 1 1 calc(20% - 20px); /* Five items per row */
+    box-sizing: border-box;
+    max-width: 120px; /* Slightly increased width */
+  }
+  
+  .affiliation-logo {
+    max-width: 100%;
+    max-height: 60px; /* Slightly increased logo size */
+    margin-bottom: 10px; /* Increased space */
+  }
+  
+  .affiliation-item p {
+    font-size: 0.9rem; /* Slightly larger font */
+    color: #777;
+    margin: 0; /* Keep margin at 0 */
+  }
+  
+  @media (max-width: 992px) {
+    .affiliation-item {
+      flex: 1 1 calc(25% - 20px); /* Four items per row */
+      max-width: 140px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .affiliation-item {
+      flex: 1 1 calc(33.333% - 20px); /* Three items per row */
+      max-width: 160px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .affiliation-item {
+      flex: 1 1 calc(50% - 20px); /* Two items per row */
+      max-width: 180px;
+    }
+  
+    .affiliation-logo {
+      max-height: 50px;
+    }
+  
+    .affiliation-item p {
+      font-size: 0.85rem;
+    }
+  }
+  
