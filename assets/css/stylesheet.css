@@ -22,7 +22,7 @@ body {
 /* End of Name Styling */
 
 /* Publications Section Images  */
- .sideimg {
+.sideimg {
     width: 115%;
     max-width: 140px;
     transition: transform 0.3s ease;
@@ -33,7 +33,7 @@ body {
 
 .sideimg:hover {
     transform: scale(1.1);
-} 
+}
 
 .institution {
     font-size: 12px;
@@ -311,21 +311,30 @@ a:hover {
 
 /* Custom Tag for Publications */
 .tag-publication {
-    background-color: #f0e1ff; /* Light purple background */
-    border-color: #d0a4ff;     /* Slightly darker purple border */
-    color: #663399;            /* Dark purple text */
+    background-color: #f0e1ff;
+    /* Light purple background */
+    border-color: #d0a4ff;
+    /* Slightly darker purple border */
+    color: #663399;
+    /* Dark purple text */
 }
 
 /* Custom Tag for Benchmarks */
 .tag-benchmark {
-    background-color: #d0e1ff; /* Light blue background */
-    border-color: #a0c4ff;     /* Slightly darker blue border */
-    color: #003366;            /* Dark blue text */
+    background-color: #d0e1ff;
+    /* Light blue background */
+    border-color: #a0c4ff;
+    /* Slightly darker blue border */
+    color: #003366;
+    /* Dark blue text */
 }
 
 /* Custom Tag for Libraries */
 .tag-library {
-    background-color: #d4f4dd; /* Light green background */
-    border-color: #9be5a9;     /* Slightly darker green border */
-    color: #005522;            /* Dark green text */
+    background-color: #d4f4dd;
+    /* Light green background */
+    border-color: #9be5a9;
+    /* Slightly darker green border */
+    color: #005522;
+    /* Dark green text */
 }
