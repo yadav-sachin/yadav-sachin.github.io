@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Interleaved Gibbs Diffusion for Constrained Generation.">
+  <meta name="keywords" content="Gibbs Diffusion, Constrained Generation, Mixed Data, Discrete-Continuous Diffusion, IGD">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interleaved Gibbs Diffusion for Constrained Generation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ngl@2.0.0-dev.40/dist/ngl.js"></script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Interleaved Gibbs Diffusion for Constrained Generation</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://in.linkedin.com/in/gautham-govind-a-8357211a7" target="_blank">Gautham Govind Anil</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://yadav-sachin.github.io/" target="_blank">Sachin Yadav</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://dheerajnagaraj.com/" target="_blank">Dheeraj Nagaraj</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sites.google.com/corp/view/karthikeyan-shanmugam" target="_blank">Karthikeyan Shanmugam</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.prateekjain.org/" target="_blank">Prateek Jain</a><sup>1</sup>
+              </span>
+            </div>
+            
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Google DeepMind</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link -->
+                <span class="link-block">
+                  <a href="https://www.arxiv.org/abs/2502.13450"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- (Optional) Video Link -->
+                <!--
+                <span class="link-block">
+                  <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_LINK"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                -->
+                <!-- Code Link -->
+                <!-- <span class="link-block">
+                  <a href="https://github.com/YourIGDRepo"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span> -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- IMAGE/ILLUSTRATION (Optional) -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <img src="./static/images/igd_figure_1.png" alt="IGD Illustration">
+            <p>
+              <strong>Interleaved Noising Process:</strong> Sequential noising of discrete tokens (\(D_s\)) and continuous vectors (\(C_s\)). Noising occurs one element at a time, keeping other elements unchanged.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We introduce <strong>Interleaved Gibbs Diffusion (IGD)</strong>, a novel generative modeling framework for mixed continuous–discrete data, focusing on constrained generation problems. Prior works on discrete and continuous–discrete diffusion models assume factorized denoising distribution for fast generation, which can hinder the modeling of strong dependencies between random variables encountered in constrained generation. IGD moves beyond this by interleaving continuous and discrete denoising algorithms via a discrete time Gibbs sampling type Markov chain. IGD provides flexibility in the choice of denoisers, allows conditional generation via state-space doubling and inference time scaling via the <em>ReDeNoise</em> method. Empirical evaluations on three challenging tasks—solving 3-SAT, generating molecule structures, and generating layouts—demonstrate state-of-the-art performance. Notably, IGD achieves a 7% improvement on 3-SAT out of the box and achieves state-of-the-art results in molecule generation without relying on equivariant diffusion or domain-specific architectures. We explore a wide range of modeling and interleaving strategies along with hyperparameters in each of these problems.
+            </p>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+
+  <section class="section" id="method-overview">
+    <div class="container is-max-desktop is-centered has-text-centered">
+      <h2 class="title is-3">Method Overview</h2>
+      <div class="content has-text-justified">
+        <p>
+          We describe the <strong>Interleaved Gibbs Diffusion (IGD)</strong> framework for sampling from a target distribution 
+          \(\pi\) over \(\mathcal{S}_L\) (with \(\mathcal{S}_L = \mathcal{X}^{L_1} \times \prod_{i=L_1+1}^{L} \mathbb{R}^{d_i}\)). 
+          In IGD, both the forward noising and reverse denoising processes operate one element at a time.
+        </p>
+        
+        <h3>Forward Noising Process</h3>
+        <p>
+          Given a sample \(s \sim \pi\), the forward process generates a trajectory 
+          \(s^{(0)}, s^{(1)}, \dots, s^{(T)}\) with \(s^{(0)} = s\). At each sequence time \(t\), a position 
+          \(i_t \in \{1,2,\dots,L\}\) is selected (via a round-robin interleaving pattern) for noising. The update rule depends on 
+          whether \(s_{i_t}\) is discrete or continuous:
+        </p>
+        <p style="text-align: center;">
+          For discrete tokens (\(i_t \leq L_1\)):
+          \[
+          s^{(t+1)}_j =
+          \begin{cases}
+            z_t, & \text{if } j=i_t \text{ and } z_t \neq \phi,\\[1ex]
+            s^{(t)}_j, & \text{otherwise},
+          \end{cases}
+          \]
+          where \(z_t \sim \Pi_t\) (a noise distribution over \(\mathcal{X} \cup \{\phi\}\)) and \(\phi \notin \mathcal{X}\).
+        </p>
+        <p style="text-align: center;">
+          For continuous vectors (\(L_1 < i_t \leq L\)):
+          \[
+          s^{(t+1)}_{i_t} = \sqrt{1-\tilde{\beta}_{m_{i_t}^t}}\, s^{(t)}_{i_t} + \sqrt{\tilde{\beta}_{m_{i_t}^t}}\, \epsilon^{(t)},
+          \]
+          where \(m_{i_t}^t\) is the number of visits to position \(i_t\) up to time \(t\), \([\tilde{\beta}_j]_{j=1}^{m}\) is a monotonically increasing noise schedule, and \(\epsilon^{(t)} \sim \mathcal{N}(0, I)\).
+        </p>
+        
+        <h3>Reverse Denoising Process</h3>
+        <p>
+          Starting from a noised sample \(\hat{s}^{(T)} \sim P_T\), the reverse process reconstructs the original sample by sequentially denoising each element. For each \(t\) (from \(T\) down to \(1\)), we set 
+          \(\hat{s}^{(t-1)}_{-i_t} = \hat{s}^{(t)}_{-i_t}\). Then, if \(\hat{s}^{(t)}_{i_t}\) is discrete, a learned discrete denoiser 
+          \(\texttt{DiscDen}(\hat{s}^{(t)}, i_t, t)\) is applied to sample \(\hat{s}^{(t-1)}_{i_t}\); if continuous, a continuous denoiser 
+          \(\texttt{ContDen}(\hat{s}^{(t)}, i_t, t)\) is used instead. Under ideal denoisers, the final output \(\hat{s}^{(0)}\) satisfies 
+          \(\hat{s}^{(0)} \sim \pi\).
+        </p>
+        
+        <h3>ReDeNoise Algorithm</h3>
+        <p>
+          To further improve sample quality at inference, we propose the <em>ReDeNoise</em> algorithm. Given a sample \(\hat{s}^{(0)}\) from 
+          the reverse process, we repeat the following two steps \(N_R\) times:
+        </p>
+        <ol>
+          <li>Noise \(\hat{s}^{(0)}\) for \(T_R\) rounds to obtain \(\hat{s}^{(T_R)}\).</li>
+          <li>Denoise \(\hat{s}^{(T_R)}\) back to \(\hat{s}^{(0)}\).</li>
+        </ol>
+        <p>
+          Here, \(N_R\) and \(T_R\) are hyperparameters that control the number of repetitions and the extent of additional noise.
+        </p>
+        
+        <h3>Conditional Generation</h3>
+        <p>
+          For conditional generation, a binary mask indicates which elements are fixed during both forward and reverse processes. 
+          This state-space doubling strategy allows the model to generate a subset of coordinates conditioned on the fixed ones.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+<section class="section" id="algorithms">
+  <div class="container is-max-desktop">
+    <div class="columns">
+      <!-- Training Algorithm Column -->
+      <div class="column">
+        <h2 class="title is-4">Training Algorithm</h2>
+        <p>
+          $$
+          \begin{array}{l}
+          \textbf{Algorithm 2: Model Training} \\[1ex]
+          \textbf{Input: } D,\; f_\theta,\; \text{FwdPrcs},\; \text{opt},\; T,\; \{i_t\}_{t=0}^{T-1},\; \{\Pi_t\},\; \{\beta_j\} \\[1ex]
+          \textbf{Output: } \text{Trained } \theta \\[1ex]
+          \textbf{For each training iteration do:} \\[1ex]
+          \quad 1.\; s^{(0)} \sim D \\[1ex]
+          \quad 2.\; \text{Sample } t \in \{0,1,\dots,T-1\} \\[1ex]
+          \quad 3.\; \textbf{if } s^{(0)}_{i_t} \text{ is discrete then} \\[1ex]
+          \quad\quad (s^{(t)}, z_t, s^{(t+1)}) = \text{FwdPrcs}(s^{(0)}, t, \{i_\tau\}_{\tau=0}^{t}, \{\Pi_\tau\}_{\tau=0}^{t}) \\[1ex]
+          \quad\quad L = \text{BCE}\Bigl(f_\theta(s^{(t+1)}_{i_t}),\, z_t\Bigr) \\[1ex]
+          \quad 4.\; \textbf{else} \\[1ex]
+          \quad\quad (s^{(t)}, \epsilon) = \text{FwdPrcs}(s^{(0)}, t, \{i_\tau\}_{\tau=0}^{t}, \{\beta_j\}) \\[1ex]
+          \quad\quad L = \bigl\| \epsilon - f_\theta(s^{(t)}_{i_t}) \bigr\|_2^2 \\[1ex]
+          \quad 5.\; \theta \leftarrow \text{opt.update}(\theta, L)
+          \end{array}
+          $$
+        </p>
+      </div>
+      <!-- Sampling Algorithm Column -->
+      <div class="column">
+        <h2 class="title is-4">Sampling Algorithm</h2>
+        <p>
+          $$
+          \begin{array}{l}
+          \textbf{Algorithm 1: Interleaved Gibbs Diffusion} \\[1ex]
+          \textbf{Input: } \hat{s}^{(T)} \sim P_T,\quad \mathtt{DiscDen},\quad \mathtt{ContDen},\quad \{i_t\}_{t=1}^{T} \\[1ex]
+          \textbf{Output: } \hat{s}^{(0)} \sim \pi \\[1ex]
+          \textbf{for } t = T,\, T-1,\, \dots,\, 1 \quad \textbf{do} \\[1ex]
+          \quad \hat{s}^{(t-1)}_{-i_t} = \hat{s}^{(t)}_{-i_t} \\[1ex]
+          \quad \textbf{if } \hat{s}^{(t)}_{i_t} \text{ is discrete then} \\[1ex]
+          \quad\quad \hat{s}^{(t-1)}_{i_t} = \mathtt{DiscDen}\bigl(\hat{s}^{(t)},\, i_t,\, t\bigr) \\[1ex]
+          \quad \textbf{else} \\[1ex]
+          \quad\quad \hat{s}^{(t-1)}_{i_t} = \mathtt{ContDen}\bigl(\hat{s}^{(t)},\, i_t,\, t\bigr) \\[1ex]
+          \quad \textbf{end if} \\[1ex]
+          \textbf{end for}
+          \end{array}
+          $$
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Molecule Generation Section -->
+  <!-- (Optional) Additional Figures or Charts -->
+  <section class="section" id="molecule-generation">
+    <div class="container is-max-desktop">
+      <h2 class="title is-centered has-text-centered">Molecule Generation: Generated Samples</h2>
+      <div class="columns is-centered">
+        <div class="column is-one-third">
+          <div id="ngl-viewer1" style="width: 100%; height: 300px; border: 1px solid #ccc;"></div>
+        </div>
+        <div class="column is-one-third">
+          <div id="ngl-viewer2" style="width: 100%; height: 300px; border: 1px solid #ccc;"></div>
+        </div>
+        <div class="column is-one-third">
+          <div id="ngl-viewer3" style="width: 100%; height: 300px; border: 1px solid #ccc;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  window.onload = function() {
+    // SDF for Molecule 1 (Example Molecule)
+    var sdfData1 =
+"Custom Molecule 1 generated by ChatGPT\n" +
+"Generated from provided coordinates and bond connectivity\n" +
+"\n" +
+" 17 20  0  0  0  0            999 V2000\n" +
+"   -0.2969    1.0323   -1.1322  C   0  0  0  0  0  0  0  0\n" +
+"   -0.0026    1.1443    0.4122  C   0  0  0  0  0  0  0  0\n" +
+"    1.3164    0.3691    0.6853  C   0  0  0  0  0  0  0  0\n" +
+"    2.0199   -0.1377   -0.4570  O   0  0  0  0  0  0  0  0\n" +
+"    1.2556   -1.0239    0.3569  C   0  0  0  0  0  0  0  0\n" +
+"   -0.1648   -1.4148   -0.0444  C   0  0  0  0  0  0  0  0\n" +
+"   -0.9133   -1.1563    1.1740  O   0  0  0  0  0  0  0  0\n" +
+"   -1.2561    0.1373    0.6356  C   0  0  0  0  0  0  0  0\n" +
+"   -0.9770   -0.2934   -0.8198  C   0  0  0  0  0  0  0  0\n" +
+"    0.5495    1.0501   -1.8043  H   0  0  0  0  0  0  0  0\n" +
+"   -1.0483    1.7642   -1.4516  H   0  0  0  0  0  0  0  0\n" +
+"   -0.0522    2.1085    0.8783  H   0  0  0  0  0  0  0  0\n" +
+"    1.9455    0.7446    1.5325  H   0  0  0  0  0  0  0  0\n" +
+"    1.8248   -1.7748    0.8871  H   0  0  0  0  0  0  0  0\n" +
+"   -0.2873   -2.4270   -0.4185  H   0  0  0  0  0  0  0  0\n" +
+"   -2.1430    0.5771    1.0411  H   0  0  0  0  0  0  0  0\n" +
+"   -1.7464   -0.7148   -1.4752  H   0  0  0  0  0  0  0  0\n" +
+"  1  2  1  0  0  0\n" +
+"  1  9  1  0  0  0\n" +
+"  1 10  1  0  0  0\n" +
+"  1 11  1  0  0  0\n" +
+"  2  3  1  0  0  0\n" +
+"  2  8  1  0  0  0\n" +
+"  2 12  1  0  0  0\n" +
+"  3  4  1  0  0  0\n" +
+"  3  5  1  0  0  0\n" +
+"  3 13  1  0  0  0\n" +
+"  4  5  1  0  0  0\n" +
+"  5  6  1  0  0  0\n" +
+"  5 14  1  0  0  0\n" +
+"  6  7  1  0  0  0\n" +
+"  6  9  1  0  0  0\n" +
+"  6 15  1  0  0  0\n" +
+"  7  8  1  0  0  0\n" +
+"  8  9  1  0  0  0\n" +
+"  8 16  1  0  0  0\n" +
+"  9 17  1  0  0  0\n" +
+"M  END\n";
+
+    // SDF for Molecule 2 (Provided Molecule)
+    var sdfData2 =
+"Custom Molecule 2 generated by ChatGPT\n" +
+"Generated from provided coordinates and bond connectivity\n" +
+"\n" +
+" 18 20  0  0  0  0            999 V2000\n" +
+"   0.0763    2.3795    0.7456  C   0  0  0  0  0  0  0  0\n" +
+"   0.2044    0.8602    0.6750  C   0  0  0  0  0  0  0  0\n" +
+"   0.7695    0.1487   -0.5561  C   0  0  0  0  0  0  0  0\n" +
+"  -0.6055    0.3822   -1.3182  C   0  0  0  0  0  0  0  0\n" +
+"  -1.0266    0.0772    0.1630  N   0  0  0  0  0  0  0  0\n" +
+"  -0.1018   -1.1259   -0.2061  C   0  0  0  0  0  0  0  0\n" +
+"   0.1940   -2.2565    0.7018  C   0  0  0  0  0  0  0  0\n" +
+"  -0.7135   -1.1103   -1.6022  C   0  0  0  0  0  0  0  0\n" +
+"  -1.0352   -1.8613   -2.4817  O   0  0  0  0  0  0  0  0\n" +
+"  -0.0496    2.8075   -0.1736  H   0  0  0  0  0  0  0  0\n" +
+"   0.8087    2.9114    0.9394  H   0  0  0  0  0  0  0  0\n" +
+"  -0.6600    2.6462    1.4872  H   0  0  0  0  0  0  0  0\n" +
+"   0.4980    0.4601    1.6073  H   0  0  0  0  0  0  0  0\n" +
+"   1.7401    0.1159   -1.0215  H   0  0  0  0  0  0  0  0\n" +
+"  -0.9530    1.2590   -1.8535  H   0  0  0  0  0  0  0  0\n" +
+"   0.6429   -1.8953    1.6665  H   0  0  0  0  0  0  0  0\n" +
+"   0.9131   -2.9522    0.2672  H   0  0  0  0  0  0  0  0\n" +
+"  -0.7298   -2.8238    0.9165  H   0  0  0  0  0  0  0  0\n" +
+"  1  2  1  0  0  0\n" +
+"  1 10  1  0  0  0\n" +
+"  1 11  1  0  0  0\n" +
+"  1 12  1  0  0  0\n" +
+"  2  3  1  0  0  0\n" +
+"  2  5  1  0  0  0\n" +
+"  2 13  1  0  0  0\n" +
+"  3  4  1  0  0  0\n" +
+"  3  6  1  0  0  0\n" +
+"  3 14  1  0  0  0\n" +
+"  4  5  1  0  0  0\n" +
+"  4  8  1  0  0  0\n" +
+"  4 15  1  0  0  0\n" +
+"  5  6  1  0  0  0\n" +
+"  6  7  1  0  0  0\n" +
+"  6  8  1  0  0  0\n" +
+"  7 16  1  0  0  0\n" +
+"  7 17  1  0  0  0\n" +
+"  7 18  1  0  0  0\n" +
+"  8  9  2  0  0  0\n" +
+"M  END\n";
+
+var sdfData3 =
+"Custom Molecule 3 generated by ChatGPT\n" +
+"Generated from provided coordinates and bond connectivity\n" +
+"\n" +
+" 17 17  0  0  0  0            999 V2000\n" +
+"   1.8855   -1.1304   -1.1960  C   0  0  0  0  0  0  0  0\n" +
+"   1.0253    0.1156   -1.0617  C   0  0  0  0  0  0  0  0\n" +
+"   1.3770    1.1960   -1.4330  O   0  0  0  0  0  0  0  0\n" +
+"  -0.3279   -0.1327   -0.3873  C   0  0  0  0  0  0  0  0\n" +
+"  -0.2264   -0.4247    1.1524  C   0  0  0  0  0  0  0  0\n" +
+"  -1.2365    0.5471    1.7996  C   0  0  0  0  0  0  0  0\n" +
+"  -1.5542    0.5416    2.9452  O   0  0  0  0  0  0  0  0\n" +
+"  -1.7265    1.4307    0.7447  C   0  0  0  0  0  0  0  0\n" +
+"  -1.2447    1.0484   -0.4410  C   0  0  0  0  0  0  0  0\n" +
+"   1.9776   -1.6548   -0.2537  H   0  0  0  0  0  0  0  0\n" +
+"   1.4300   -1.8381   -1.8949  H   0  0  0  0  0  0  0  0\n" +
+"   2.8967   -0.8379   -1.5799  H   0  0  0  0  0  0  0  0\n" +
+"  -0.7789   -0.9881   -0.8774  H   0  0  0  0  0  0  0  0\n" +
+"  -0.4883   -1.4665    1.4239  H   0  0  0  0  0  0  0  0\n" +
+"   0.7573   -0.2191    1.5359  H   0  0  0  0  0  0  0  0\n" +
+"  -2.3805    2.2499    0.9312  H   0  0  0  0  0  0  0  0\n" +
+"  -1.4070    1.5563   -1.4220  H   0  0  0  0  0  0  0  0\n" +
+"  1  2  1  0  0  0\n" +
+"  1 10  1  0  0  0\n" +
+"  1 11  1  0  0  0\n" +
+"  1 12  1  0  0  0\n" +
+"  2  3  2  0  0  0\n" +
+"  2  4  1  0  0  0\n" +
+"  4  5  1  0  0  0\n" +
+"  4  9  1  0  0  0\n" +
+"  4 13  1  0  0  0\n" +
+"  5  6  1  0  0  0\n" +
+"  5 14  1  0  0  0\n" +
+"  5 15  1  0  0  0\n" +
+"  6  7  2  0  0  0\n" +
+"  6  8  1  0  0  0\n" +
+"  8  9  2  0  0  0\n" +
+"  8 16  1  0  0  0\n" +
+"  9 17  1  0  0  0\n" +
+"M  END\n";
+
+    // Create NGL stages and load each molecule.
+    var stage1 = new NGL.Stage("ngl-viewer1");
+    var blob1 = new Blob([sdfData1], { type: "text/plain" });
+    stage1.loadFile(blob1, { ext: "sdf" }).then(function(component) {
+      component.addRepresentation("ball+stick");
+      component.autoView();
+    });
+    
+    var stage2 = new NGL.Stage("ngl-viewer2");
+    var blob2 = new Blob([sdfData2], { type: "text/plain" });
+    stage2.loadFile(blob2, { ext: "sdf" }).then(function(component) {
+      component.addRepresentation("ball+stick");
+      component.autoView();
+    });
+    
+    var stage3 = new NGL.Stage("ngl-viewer3");
+    var blob3 = new Blob([sdfData3], { type: "text/plain" });
+    stage3.loadFile(blob3, { ext: "sdf" }).then(function(component) {
+      component.addRepresentation("ball+stick");
+      component.autoView();
+    });
+    
+    // Handle window resize for all stages.
+    window.addEventListener("resize", function() {
+      stage1.handleResize();
+      stage2.handleResize();
+      stage3.handleResize();
+    });
+  };
+</script>
+  
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{anil2025interleaved,
+        title={Interleaved Gibbs Diffusion for Constrained Generation},
+        author={Anil, Gautham Govind and Yadav, Sachin and Nagaraj, Dheeraj and Shanmugam, Karthikeyan and Jain, Prateek},
+        journal={arXiv preprint arXiv:2502.13450},
+        year={2025}
+      }
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          Template inspired by <a href="https://nerfies.github.io">Nerfies</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

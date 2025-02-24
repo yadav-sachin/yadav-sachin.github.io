@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Molecule Generation - Benzene</title>
+  <script src="https://cdn.jsdelivr.net/npm/ngl@2.0.0-dev.40/dist/ngl.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    #viewport {
+      width: 400px;
+      height: 400px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <h2>Molecule Generation: Benzene</h2>
+      <!-- NGL Viewer Container -->
+      <div id="viewport"></div>
+    </div>
+  </section>
+
+  <script>
+    // Create the NGL Stage in the 'viewport' div
+    var stage = new NGL.Stage("viewport");
+
+    // PDB data for benzene molecule
+    var pdbData = `
+ATOM      1  C   BEN A   1       1.396   0.000   0.000  1.00  0.00           C
+ATOM      2  C   BEN A   1       0.698   1.209   0.000  1.00  0.00           C
+ATOM      3  C   BEN A   1      -0.698   1.209   0.000  1.00  0.00           C
+ATOM      4  C   BEN A   1      -1.396   0.000   0.000  1.00  0.00           C
+ATOM      5  C   BEN A   1      -0.698  -1.209   0.000  1.00  0.00           C
+ATOM      6  C   BEN A   1       0.698  -1.209   0.000  1.00  0.00           C
+ATOM      7  H   BEN A   1       2.479   0.000   0.000  1.00  0.00           H
+ATOM      8  H   BEN A   1       1.239   2.146   0.000  1.00  0.00           H
+ATOM      9  H   BEN A   1      -1.239   2.146   0.000  1.00  0.00           H
+ATOM     10  H   BEN A   1      -2.479   0.000   0.000  1.00  0.00           H
+ATOM     11  H   BEN A   1      -1.239  -2.146   0.000  1.00  0.00           H
+ATOM     12  H   BEN A   1       1.239  -2.146   0.000  1.00  0.00           H
+TER
+END
+    `;
+
+    // Create a blob from the PDB data
+    var blob = new Blob([pdbData], {type: 'text/plain'});
+
+    // Load the blob as a PDB file
+    stage.loadFile(blob, { ext: "pdb" }).then(function(component) {
+      // Add a ball+stick representation
+      component.addRepresentation("ball+stick");
+      // Adjust the view to fit the molecule
+      component.autoView();
+    });
+
+    // Handle window resize
+    window.addEventListener("resize", function() {
+      stage.handleResize();
+    });
+  </script>
+</body>
+</html>
