@@ -158,8 +158,8 @@ a:hover {
 
 /* Affiliations Section */
 .affiliations {
-    padding: 30px 0;
-    /* Slightly increased padding */
+    padding: 0px 0;
+    /* Reduced padding */
 }
 
 .affiliations-container-small {
@@ -192,6 +192,7 @@ a:hover {
     /* Slightly increased logo size */
     margin-bottom: 10px;
     /* Increased space */
+    object-fit: contain;
 }
 
 .affiliation-item p {
@@ -337,4 +338,46 @@ a:hover {
     /* Slightly darker green border */
     color: #005522;
     /* Dark green text */
+}
+
+/* Product Impacts Section Specific Styles */
+#product-impacts .affiliations-items {
+    justify-content: flex-start;
+}
+
+#product-impacts .affiliation-item {
+    flex: 1 1 calc(20% - 20px);
+    max-width: 120px;
+    text-align: center;
+}
+
+#product-impacts .affiliation-logo {
+    max-height: 60px;
+    object-fit: contain;
+}
+
+#product-impacts .affiliation-item p {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+@media (max-width: 992px) {
+    #product-impacts .affiliation-item {
+        flex: 1 1 calc(25% - 20px);
+        max-width: 140px;
+    }
+}
+
+@media (max-width: 768px) {
+    #product-impacts .affiliation-item {
+        flex: 1 1 calc(33.333% - 20px);
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    #product-impacts .affiliation-item {
+        flex: 1 1 calc(50% - 20px);
+        max-width: 180px;
+    }
 }
