@@ -193,6 +193,11 @@ a:hover {
     margin-bottom: 10px;
     /* Increased space */
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.affiliation-logo:hover {
+    transform: scale(1.1);
 }
 
 .affiliation-item p {
@@ -338,6 +343,13 @@ a:hover {
     /* Slightly darker green border */
     color: #005522;
     /* Dark green text */
+}
+
+/* Custom Tag for Patents */
+.tag-patent {
+background-color: hsl(48, 86%, 92%); /* very light yellow */
+border-color: #fde68a; /* light amber border */
+color: #854d0e; /* dark amber text */
 }
 
 /* Product Impacts Section Specific Styles */
