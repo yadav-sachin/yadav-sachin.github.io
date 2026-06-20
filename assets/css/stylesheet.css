@@ -148,7 +148,9 @@ a:hover {
     }
 
     .sideimg {
-        display: none;
+        width: auto;
+        max-width: 120px;
+        margin: 0 auto 10px;
     }
 
     .paper {
