@@ -1,11 +1,747 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url=http://manikvarma.org/pubs/yadav24.pdf">
-    <title>Redirecting...</title>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Extreme Meta-Classification for Large-Scale Zero-Shot Retrieval (EMMETT / IRENE), KDD 2024.">
+  <meta name="keywords"
+    content="Extreme Classification, Zero-Shot Retrieval, Meta-Classification, EMMETT, IRENE, Sponsored Search, Dense Retrieval">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Extreme Meta-Classification for Large-Scale Zero-Shot Retrieval</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    .stat-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 1.25rem 1rem;
+      height: 100%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #3273dc;
+      line-height: 1.1;
+    }
+    .stat-number.is-negative { color: #23d160; }
+    .stat-label { color: #555; font-size: 0.95rem; margin-top: 0.35rem; }
+    .pipeline-step {
+      border: 2px solid #3273dc;
+      border-radius: 10px;
+      padding: 1rem;
+      background: #f5f8ff;
+      height: 100%;
+    }
+    .pipeline-step h4 { color: #3273dc; font-weight: 700; margin-bottom: 0.4rem; }
+    .pipeline-arrow {
+      font-size: 2rem;
+      color: #3273dc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .qual-table td, .qual-table th { vertical-align: middle; }
+    .highlight-row { background-color: #eaf2ff !important; font-weight: 700; }
+  </style>
 </head>
+
 <body>
-    <p>If you are not redirected automatically, follow this <a href="http://manikvarma.org/pubs/yadav24.pdf">link to the new page</a>.</p>
+
+  <!-- ======================= HERO ======================= -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Extreme Meta-Classification for Large-Scale Zero-Shot Retrieval
+            </h1>
+            <p class="is-size-5" style="margin-bottom: 1rem; color:#555;">
+              A general framework (<strong>EMMETT</strong>) and a simple, deployable algorithm (<strong>IRENE</strong>)
+              that synthesize classifiers on-the-fly for novel items &mdash; no retraining required.
+            </p>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://yadav-sachin.github.io/" target="_blank">Sachin Yadav</a><sup>1</sup>*<sup>&dagger;</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://deepaksaini119.github.io/" target="_blank">Deepak Saini</a><sup>2</sup>*,
+              </span>
+              <span class="author-block">
+                <a href="https://anirudhb11.github.io/" target="_blank">Anirudh Buvanesh</a><sup>1</sup>*,
+              </span>
+              <span class="author-block">Bhawna Paliwal<sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://kunaldahiya.github.io/" target="_blank">Kunal Dahiya</a><sup>3</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <a href="https://www.siddarthasokan.com/" target="_blank">Siddarth Asokan</a><sup>1</sup><sup>&Dagger;</sup>,
+              </span>
+              <span class="author-block">Yashoteja Prabhu<sup>1</sup>,</span>
+              <span class="author-block">Jian Jiao<sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://manikvarma.org/" target="_blank">Manik Varma</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-6 publication-authors">
+              <span class="author-block"><sup>1</sup>Microsoft Research India,</span>
+              <span class="author-block"><sup>2</sup>Microsoft, Redmond,</span>
+              <span class="author-block"><sup>3</sup>IIT Delhi</span>
+            </div>
+            <div class="is-size-7 publication-authors" style="color:#777;">
+              <span>*Equal technical contribution. &dagger;Sachin Yadav led the project. &Dagger;Corresponding authors.</span>
+            </div>
+
+            <div class="is-size-5 publication-authors" style="margin-top:0.5rem;">
+              <strong>KDD 2024</strong> &nbsp;&middot;&nbsp; <span style="color:#3273dc;">Oral Presentation</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- ACM / Paper -->
+                <span class="link-block">
+                  <a href="https://dl.acm.org/doi/10.1145/3637528.3672046" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper (ACM)</span>
+                  </a>
+                </span>
+                <!-- PDF mirror -->
+                <span class="link-block">
+                  <a href="http://manikvarma.org/pubs/yadav24.pdf" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-alt"></i></span>
+                    <span>PDF</span>
+                  </a>
+                </span>
+                <!-- Supplementary -->
+                <span class="link-block">
+                  <a href="https://www.siddarthasokan.com/assets/pdf/EMMETT_IRENE24_Supp.pdf" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-book"></i></span>
+                    <span>Supplementary</span>
+                  </a>
+                </span>
+                <!-- Code -->
+                <span class="link-block">
+                  <a href="https://github.com/yadav-sachin/IRENE" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Slides -->
+                <span class="link-block">
+                  <a href="https://yadav-sachin.github.io/assets/docs/KDD_Extreme_Meta_Classification_Presentation.pdf"
+                    target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-desktop"></i></span>
+                    <span>Slides</span>
+                  </a>
+                </span>
+                <!-- Patent -->
+                <span class="link-block">
+                  <a href="https://patents.google.com/patent/US12499168B2" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-award"></i></span>
+                    <span>Patent</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= TEASER ======================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <img src="./static/images/emmett_framework.png" alt="EMMETT framework overview">
+          <p>
+            <strong>The EMMETT framework.</strong> Given an extreme-classification base (encoder \(\mathcal{E}\) and
+            learnt classifiers \(\mathbb{W}\)), a <em>Classifier Selector</em> \(\mathcal{S}\) retrieves the most
+            informative observed-item classifiers for a novel item, and a <em>Meta-Classifier Generator</em>
+            \(\mathcal{G}\) combines them with the item's encoder representation and metadata to synthesize the novel
+            item's <em>meta-classifier</em> &mdash; entirely at inference time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= ABSTRACT ======================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We develop accurate and efficient solutions for large-scale retrieval tasks where novel
+              (<em>zero-shot</em>) items can arrive continuously at a rapid pace. Conventional Siamese-style approaches
+              embed both queries and items through a small encoder and retrieve the items lying closest to the query.
+              While this allows efficient addition and retrieval of novel items, the small encoder lacks sufficient
+              capacity for the world knowledge needed in complex retrieval tasks. Extreme classification (XC) approaches
+              address this by learning a separate classifier for each item observed in the training set, significantly
+              increasing model capacity. Such classifiers outperform Siamese approaches on observed items, but cannot be
+              trained for novel items due to data and latency constraints. To bridge these gaps, this paper develops:
+              (1) a new algorithmic framework, <strong>EMMETT</strong>, which efficiently synthesizes classifiers
+              on-the-fly for novel items by relying on the readily available classifiers for observed items;
+              (2) a new algorithm, <strong>IRENE</strong>, a simple and effective instance of EMMETT specifically suited
+              for large-scale deployments; and (3) a new theoretical framework for analyzing the generalization
+              performance in large-scale zero-shot retrieval that guides our algorithmic and training design decisions.
+              Comprehensive experiments demonstrate that IRENE improves zero-shot retrieval accuracy by up to
+              <strong>15% points in Recall@10</strong> when added on top of leading encoders. On an online A/B test in
+              a large-scale ad retrieval task on a major search engine, IRENE improved the ad click-through rate by
+              <strong>4.2%</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= KEY CONTRIBUTIONS ======================= -->
+  <section class="section" style="padding-top:0;">
+    <div class="container is-max-desktop">
+      <div class="columns is-multiline is-centered">
+        <div class="column is-one-third">
+          <div class="stat-card has-text-centered">
+            <div class="stat-number">+15%</div>
+            <div class="stat-label">max gain in Recall@10 over leading encoders (zero-shot)</div>
+          </div>
+        </div>
+        <div class="column is-one-third">
+          <div class="stat-card has-text-centered">
+            <div class="stat-number">+4.2%</div>
+            <div class="stat-label">ad click-through rate in a live A/B test on a major search engine</div>
+          </div>
+        </div>
+        <div class="column is-one-third">
+          <div class="stat-card has-text-centered">
+            <div class="stat-number">350&times;</div>
+            <div class="stat-label">faster at inference than SemSup-XC, with no added retrieval latency</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= METHOD OVERVIEW ======================= -->
+  <section class="section" id="method-overview">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Method Overview</h2>
+      <div class="content has-text-justified">
+        <p>
+          Large-scale retrieval systems are flooded daily with <em>novel items</em> &mdash; new products, emerging
+          search keywords, breaking-news topics &mdash; that arrive faster than annotations can be collected. Small
+          Siamese encoders can embed these items instantly but lack the capacity to resolve named entities, model
+          numbers, synonymy, and polysemy. Extreme classifiers carry this world knowledge in a dedicated per-item
+          classifier, but a novel item has no clicks and therefore no classifier. Our guiding question:
+        </p>
+        <blockquote>
+          How can we construct accurate representations for novel items <em>without</em> significant computational
+          overhead in large-scale retrieval?
+        </blockquote>
+        <p>
+          EMMETT is built on a key insight: classifiers trained for a million observed items already contain, in
+          distilled and readily usable form, most of the world knowledge any novel item would need. EMMETT therefore
+          <strong>synthesizes</strong> a classifier for a novel item by selecting and combining the classifiers of
+          related observed items. A second insight powers training: each observed item, with its own classifier held
+          out, can serve as a <em>proxy</em> for a zero-shot item &mdash; yielding a massive training set for
+          zero-shot generalization.
+        </p>
+      </div>
+
+      <!-- IRENE pipeline -->
+      <h3 class="title is-4 has-text-centered" style="margin-top:2rem;">IRENE: a deployable instance of EMMETT</h3>
+      <div class="columns is-vcentered">
+        <div class="column">
+          <div class="pipeline-step">
+            <h4>1. Base Extreme Classifier &nbsp;(\(\mathcal{E}, \mathbb{W}\))</h4>
+            <p>A frozen 6-layer DistilBERT encoder \(\mathcal{E}\) and per-item classifiers \(\mathbb{W}\), trained with
+              any state-of-the-art recipe (NGAME, ANCE, MACLR, DPR).</p>
+          </div>
+        </div>
+        <div class="column is-1"><div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div></div>
+        <div class="column">
+          <div class="pipeline-step">
+            <h4>2. Classifier Selector &nbsp;\(\mathcal{S}\)</h4>
+            <p>For a novel item, an ANNS / MIPS search (e.g. DiskANN) over observed-item embeddings retrieves its
+              \(K\) nearest neighbors in \(\mathcal{O}(\log L)\) time. \(K\approx 3\) works best.</p>
+          </div>
+        </div>
+        <div class="column is-1"><div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div></div>
+        <div class="column">
+          <div class="pipeline-step">
+            <h4>3. Meta-Classifier Generator &nbsp;\(\mathcal{G}\)</h4>
+            <p>A single-layer Transformer attends over the novel item's embedding and the \(K\) selected classifiers to
+              synthesize the meta-classifier \(u_\ell\) in one forward pass.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content has-text-justified" style="margin-top:1.5rem;">
+        <p>
+          The meta-classifier for item \(z_\ell\) is produced by the generator
+          \(u_\ell = \mathcal{G}_\phi(z_\ell, \mathcal{S}(z_\ell))\), where each layer takes the form:
+        </p>
+        <p style="text-align:center;">
+          \[
+          \texttt{Linear}\big(\texttt{Self-Attention}(z_\ell + t_{\text{enc}},\; w^1_\ell + t_{\text{clf}},\;
+          w^2_\ell + t_{\text{clf}},\; \dots)\big),
+          \]
+        </p>
+        <p>
+          where \(w^i_\ell \in \mathcal{S}(z_\ell)\) are the selected classifiers and \(t_{\text{enc}}, t_{\text{clf}}\)
+          are learnable type embeddings that distinguish the encoder input from the classifier inputs. Self-attention
+          lets \(\mathcal{G}\) filter noisy neighbors and fuse useful world knowledge &mdash; far more expressive than a
+          naive (weighted) sum of classifiers.
+        </p>
+
+        <h4 class="title is-5">Training with held-out classifiers</h4>
+        <p>
+          To simulate novel items at training time, an observed item \(z_\ell\) is represented not by its own classifier
+          \(w_\ell\) but by the meta-classifier \(u_\ell\) synthesized from its <em>neighbors</em>. The encoder and
+          observed-item classifiers stay frozen; only \(\mathcal{G}\) is trained, using a weighted one-vs-all BCE loss:
+        </p>
+        <p style="text-align:center;">
+          \[
+          \mathcal{L}_\mathcal{G} = \sum_{x_i \in \mathbb{X}} \sum_{z_\ell \in \mathbb{Z}_{o,i}}
+          \Big( C\, y_{i\ell}\ln\big(\sigma(x_i^\top u_\ell)\big) + (1 - y_{i\ell})\ln\big(1 - \sigma(x_i^\top u_\ell)\big)\Big),
+          \]
+        </p>
+        <p>
+          where \(\sigma\) is the sigmoid, \(C\) up-weights the rare positive query-item pairs, and \(\mathbb{Z}_{o,i}\)
+          contains positives plus mined negatives. New items are incorporated by simply encoding them and inserting them
+          into an updatable ANNS index &mdash; no model retraining.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= THEORY ======================= -->
+  <section class="section" id="theory" style="background-color:#fafafa;">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Theoretical Guarantees</h2>
+      <div class="content has-text-justified">
+        <p>
+          We cast zero-shot retrieval as binary classification over query-item pairs and develop a generalization
+          framework around it. Two results directly motivate IRENE's design:
+        </p>
+        <p>
+          <strong>Theorem 1 (Generalization of EMMETT).</strong> With probability at least \(1-\delta\),
+        </p>
+        <p style="text-align:center;">
+          \[
+          \mathcal{R} \le \hat{\mathcal{R}} + \hat{\mathfrak{R}}_{\mathbb{S}}(\mathcal{F}) + 3\left( q +
+          \sqrt{\tfrac{\ln\!\left(\frac{2}{\delta - 2q}\right)}{2M}} \right), \qquad
+          q \le \exp\!\left\{ -2M\left(1 - p - \tfrac{\kappa}{M}\right)^2 \right\}.
+          \]
+        </p>
+        <p>
+          Forming the dataset over the full Cartesian product of queries and items (the one-vs-all view) drives the
+          generalization gap toward \(q \approx e^{-2M}\) &mdash; explaining why IRENE's <strong>one-vs-all loss</strong>
+          generalizes so well to novel items.
+        </p>
+        <p>
+          <strong>Lemma 2 (Complexity of the IRENE generator).</strong>
+          \(\hat{\mathfrak{R}}_{\mathbb{S}}(\mathcal{F}) \le \mathcal{O}\!\big(B\lVert M\rVert_2 \sqrt{d\ln(K+1)}\big).\)
+          Two consequences follow: (i) complexity grows only <strong>logarithmically in \(K\)</strong>, so small
+          neighborhoods are provably preferable; and (ii) because the classifiers are <strong>frozen</strong>, the bound
+          is <strong>independent of the number of items \(L\)</strong> &mdash; IRENE scales gracefully as the catalogue
+          grows. Freezing matters: training classifiers through the meta-loss reintroduces a \(\sqrt{L}\) dependence
+          (Corollary 3).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= RESULTS: ENCODERS ======================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">A Plug-and-Play Boost for Any Dense Retriever</h2>
+      <p class="has-text-centered content">
+        Added on top of four leading encoders, IRENE consistently and substantially lifts zero-shot accuracy. Gains are
+        largest where queries and items are lexically dissimilar &mdash; precisely where a small encoder needs the world
+        knowledge stored in neighboring classifiers.
+      </p>
+      <canvas id="encoder-chart" style="width:100%; height:420px;"></canvas>
+      <p class="subtitle has-text-centered" style="margin-top:1rem;">
+        Zero-shot <strong>P@1</strong> on LF-WikiHierarchy-550K. Each base encoder is shown against its
+        <strong>+IRENE</strong> variant.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= RESULTS: R@10 ACROSS DATASETS ======================= -->
+  <section class="section" style="background-color:#fafafa;">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Consistent Gains Across Applications</h2>
+      <p class="has-text-centered content">
+        On average IRENE improves <strong>P@1 by 10.1%</strong> and <strong>R@10 by 11.9%</strong> in the zero-shot
+        setting, and <strong>P@1 by 15.5%</strong> / <strong>R@10 by 11.5%</strong> in the generalized setting.
+      </p>
+      <canvas id="dataset-chart" style="width:100%; height:420px;"></canvas>
+      <p class="subtitle has-text-centered" style="margin-top:1rem;">
+        Zero-shot <strong>R@10</strong> of NGAME vs. NGAME+IRENE across four benchmarks spanning query completion,
+        taxonomy completion, product recommendation, and category annotation.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= ROBUSTNESS ======================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Robust as the Catalogue Shifts</h2>
+      <p class="has-text-centered content">
+        As the fraction of novel items grows from 10% to 40% on LF-WikiHierarchy-550K, the base encoder degrades sharply
+        while IRENE stays resilient &mdash; consistent with its \(L\)-independent generalization bound.
+      </p>
+      <canvas id="robust-chart" style="width:100%; height:380px;"></canvas>
+      <p class="subtitle has-text-centered" style="margin-top:1rem;">Zero-shot <strong>P@1</strong> vs. novel-item ratio.</p>
+    </div>
+  </section>
+
+  <!-- ======================= EFFICIENCY ======================= -->
+  <section class="section" style="background-color:#fafafa;">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Real-Time at Scale</h2>
+      <p class="has-text-centered content">
+        IRENE adds essentially no retrieval latency and only ~0.46&nbsp;ms to item representation, while being about
+        <strong>350&times;</strong> faster than the token-interaction baseline SemSup-XC. A novel keyword can be encoded
+        in <strong>under 1&nbsp;ms</strong>.
+      </p>
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <caption style="caption-side:bottom; padding-top:0.5rem; color:#777;">
+              Inference time (ms) on a single V100 GPU, LF-AmazonTitles-1.3M-10. Representation time is per item;
+              retrieval time is per query.
+            </caption>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th class="has-text-centered">Rep. Time (ms) &darr;</th>
+                <th class="has-text-centered">Retrieval Time (ms) &darr;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>NGAME</td><td class="has-text-centered">0.08</td><td class="has-text-centered">0.43</td></tr>
+              <tr><td>SemSup-XC</td><td class="has-text-centered">N/A</td><td class="has-text-centered">151.51</td></tr>
+              <tr><td>DEXA</td><td class="has-text-centered">0.48</td><td class="has-text-centered">0.43</td></tr>
+              <tr class="highlight-row"><td>NGAME + IRENE</td><td class="has-text-centered">0.54</td><td class="has-text-centered">0.43</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= SPONSORED SEARCH ======================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Deployed in Sponsored Search</h2>
+      <p class="content has-text-justified">
+        IRENE was deployed on a major search engine and evaluated against an extensive control ensemble of dense
+        retrieval, graph-based, generative, and IR algorithms. Trained on the proprietary
+        <strong>KeywordPrediction-10M</strong> dataset (~220M training queries, ~5M items), it generated representations
+        for <strong>100M novel advertiser keywords</strong>. Online A/B results on live traffic:
+      </p>
+
+      <div class="columns is-multiline is-centered">
+        <div class="column is-one-quarter">
+          <div class="stat-card has-text-centered">
+            <div class="stat-number">+4.2%</div>
+            <div class="stat-label">Click-through rate</div>
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="stat-card has-text-centered">
+            <div class="stat-number is-negative">&minus;0.9%</div>
+            <div class="stat-label">Quick-back rate</div>
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="stat-card has-text-centered">
+            <div class="stat-number">+7.8%</div>
+            <div class="stat-label">Keyword density</div>
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="stat-card has-text-centered">
+            <div class="stat-number">+9%</div>
+            <div class="stat-label">Good predictions (expert judges)</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="title is-5 has-text-centered" style="margin-top:2rem;">Offline: 100M Novel Keywords</h3>
+      <p class="has-text-centered content">
+        Against the top in-production dense retrievers (anonymized as M1&ndash;M4), each given only a keyword's text,
+        IRENE is at least <strong>4% better in R@100</strong>.
+      </p>
+      <canvas id="keyword-chart" style="width:100%; height:380px;"></canvas>
+      <p class="subtitle has-text-centered" style="margin-top:1rem;">
+        <strong>R@100</strong> on 100M zero-shot advertiser keywords (M1&ndash;M4 are anonymized production retrievers).
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= QUALITATIVE ======================= -->
+  <section class="section" style="background-color:#fafafa;">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Beyond Text Matching</h2>
+      <p class="content has-text-justified">
+        By endowing a query's representation with world knowledge drawn from the classifiers of similar observed items,
+        IRENE surfaces advertiser keywords that share <em>no lexical overlap</em> with the query &mdash; matches that
+        the entire production ensemble missed.
+      </p>
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth qual-table">
+            <thead>
+              <tr>
+                <th>User Query</th>
+                <th>Advertiser Keyword Retrieved by IRENE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>firewalla gold att fiber connection</td><td>att ethernet network</td></tr>
+              <tr><td>work order app hydraulics</td><td>plumbing work order software</td></tr>
+              <tr><td>netbenefits com login</td><td>fidelity retirement account</td></tr>
+              <tr><td>hypokalemia</td><td>high potassium in the blood</td></tr>
+              <tr><td>23andme</td><td>genetic screening</td></tr>
+              <tr><td>financial services crm software</td><td>sap customer management software</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= ABLATIONS ======================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Ablations</h2>
+      <p class="content has-text-justified">
+        The attention-based generator is the workhorse: replacing it with a (weighted) sum of classifiers drops zero-shot
+        P@1 by roughly <strong>24%</strong>. Consistent with Lemma 2, a small neighborhood (\(K\approx 3\)) and a single
+        generator layer (\(D=1\)) balance capacity against overfitting and training cost.
+      </p>
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <caption style="caption-side:bottom; padding-top:0.5rem; color:#777;">
+              NGAME+IRENE on LF-WikiHierarchy-550K-10, zero-shot. \(D\): generator depth; \(K\): neighbors selected.
+            </caption>
+            <thead>
+              <tr>
+                <th>Configuration</th>
+                <th class="has-text-centered">P@1 &uarr;</th>
+                <th class="has-text-centered">P@5 &uarr;</th>
+                <th class="has-text-centered">R@10 &uarr;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight-row"><td>IRENE (\(D=1,\,K=3\))</td><td class="has-text-centered">69.29</td><td class="has-text-centered">38.81</td><td class="has-text-centered">80.40</td></tr>
+              <tr><td>Generator depth \(D=2\)</td><td class="has-text-centered">70.36</td><td class="has-text-centered">39.06</td><td class="has-text-centered">80.39</td></tr>
+              <tr><td>Generator depth \(D=4\)</td><td class="has-text-centered">70.71</td><td class="has-text-centered">39.11</td><td class="has-text-centered">80.27</td></tr>
+              <tr><td>\(\mathcal{G}\) as Sum</td><td class="has-text-centered">45.49</td><td class="has-text-centered">25.46</td><td class="has-text-centered">59.01</td></tr>
+              <tr><td>\(\mathcal{G}\) as weighted Sum</td><td class="has-text-centered">46.39</td><td class="has-text-centered">25.88</td><td class="has-text-centered">59.29</td></tr>
+              <tr><td>Selector \(K=1\)</td><td class="has-text-centered">68.98</td><td class="has-text-centered">38.56</td><td class="has-text-centered">80.11</td></tr>
+              <tr><td>Selector \(K=6\)</td><td class="has-text-centered">69.99</td><td class="has-text-centered">39.12</td><td class="has-text-centered">80.79</td></tr>
+              <tr><td>Selector \(K=20\)</td><td class="has-text-centered">69.07</td><td class="has-text-centered">38.57</td><td class="has-text-centered">79.80</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="content has-text-justified">
+        IRENE also extends naturally to the extreme tail. <strong>IRENE-OneShot</strong> folds the single revealed query
+        of a one-shot item into the classifier selector via max-voting, beating even an idealized NGAME retrained from
+        scratch on the consolidated data by ~1&ndash;2% &mdash; without any fine-tuning of the base model.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= BIBTEX ======================= -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{yadav2024extrememetaclassification,
+  author    = {Yadav, Sachin and Saini, Deepak and Buvanesh, Anirudh and Paliwal, Bhawna
+               and Dahiya, Kunal and Asokan, Siddarth and Prabhu, Yashoteja
+               and Jiao, Jian and Varma, Manik},
+  title     = {Extreme Meta-Classification for Large-Scale Zero-Shot Retrieval},
+  booktitle = {Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
+  series    = {KDD '24},
+  year      = {2024},
+  doi       = {10.1145/3637528.3672046}
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          The EMMETT / IRENE methodology is protected by granted US Patent
+          <a href="https://patents.google.com/patent/US12499168B2" target="_blank">US12499168B2</a>.
+          Template inspired by <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================= CHART SCRIPTS ======================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // --- Chart 1: Per-encoder zero-shot P@1 on LF-WikiHierarchy-550K ---
+      new Chart(document.getElementById('encoder-chart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['NGAME', 'ANCE', 'DPR', 'MACLR'],
+          datasets: [
+            {
+              label: 'Base encoder',
+              data: [46.01, 43.06, 44.84, 30.37],
+              backgroundColor: 'rgba(153, 102, 255, 0.25)',
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 1
+            },
+            {
+              label: '+ IRENE',
+              data: [69.29, 66.54, 69.65, 69.45],
+              backgroundColor: 'rgba(75, 192, 192, 0.45)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: { title: { display: false } },
+          scales: { y: { beginAtZero: true, title: { display: true, text: 'Zero-Shot P@1' } } }
+        }
+      });
+
+      // --- Chart 2: NGAME vs NGAME+IRENE R@10 across datasets ---
+      new Chart(document.getElementById('dataset-chart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['LF-AOL-270K', 'LF-WikiHierarchy-550K', 'LF-AmazonTitles-1.3M', 'LF-Wikipedia-500K'],
+          datasets: [
+            {
+              label: 'NGAME',
+              data: [54.20, 58.66, 36.44, 65.27],
+              backgroundColor: 'rgba(153, 102, 255, 0.25)',
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'NGAME + IRENE',
+              data: [59.57, 80.40, 38.83, 67.79],
+              backgroundColor: 'rgba(54, 162, 235, 0.45)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true, title: { display: true, text: 'Zero-Shot R@10' } } }
+        }
+      });
+
+      // --- Chart 3: Robustness to novel ratio ---
+      new Chart(document.getElementById('robust-chart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: ['10%', '20%', '30%', '40%'],
+          datasets: [
+            {
+              label: 'NGAME',
+              data: [66.19, 65.29, 63.59, 60.12],
+              borderColor: 'rgba(153, 102, 255, 1)',
+              backgroundColor: 'rgba(153, 102, 255, 0.15)',
+              borderWidth: 2, fill: false, tension: 0.2, pointRadius: 5
+            },
+            {
+              label: 'NGAME + IRENE',
+              data: [91.33, 89.37, 89.50, 87.64],
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.15)',
+              borderWidth: 3, fill: false, tension: 0.2, pointRadius: 5
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: false, min: 50, title: { display: true, text: 'Zero-Shot P@1' } },
+            x: { title: { display: true, text: 'Fraction of novel items' } }
+          }
+        }
+      });
+
+      // --- Chart 4: 100M keyword R@100 ---
+      new Chart(document.getElementById('keyword-chart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['M1', 'M2', 'M3', 'M4', 'NGAME + IRENE'],
+          datasets: [{
+            label: 'R@100',
+            data: [48.46, 38.99, 39.33, 62.19, 66.68],
+            backgroundColor: [
+              'rgba(255, 159, 64, 0.25)',
+              'rgba(255, 159, 64, 0.25)',
+              'rgba(255, 159, 64, 0.25)',
+              'rgba(255, 159, 64, 0.25)',
+              'rgba(75, 192, 192, 0.5)'
+            ],
+            borderColor: [
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: [1, 1, 1, 1, 3]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, title: { display: true, text: 'R@100 (100M keywords)' } } }
+        }
+      });
+    });
+  </script>
+
 </body>
+
 </html>
