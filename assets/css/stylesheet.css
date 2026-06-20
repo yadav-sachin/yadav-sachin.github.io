@@ -25,14 +25,20 @@ body {
 .sideimg {
     width: 100%;
     max-width: 140px;
-    transition: transform 0.3s ease;
-    border: 1px solid #ccc;
+    max-height: 104px;
+    object-fit: contain;
+    padding: 3px;
+    background: #fbfaf7;
+    border: 1px solid #e4dfd5;
+    border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: block;
     margin: 0 auto;
 }
 
 .sideimg:hover {
-    transform: scale(1.1);
+    transform: scale(1.06);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 .institution {
