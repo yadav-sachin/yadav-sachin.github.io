@@ -59,7 +59,6 @@
       justify-content: center;
       height: 100%;
     }
-    .qual-table td, .qual-table th { vertical-align: middle; }
     .highlight-row { background-color: #eaf2ff !important; font-weight: 700; }
   </style>
 </head>
@@ -89,7 +88,9 @@
               <span class="author-block">
                 <a href="https://anirudhb11.github.io/" target="_blank">Anirudh Buvanesh</a><sup>1</sup>*,
               </span>
-              <span class="author-block">Bhawna Paliwal<sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://bhawnapaliwal.github.io/" target="_blank">Bhawna Paliwal</a><sup>1</sup>,
+              </span>
               <span class="author-block">
                 <a href="https://kunaldahiya.github.io/" target="_blank">Kunal Dahiya</a><sup>3</sup>,
               </span>
@@ -97,8 +98,12 @@
               <span class="author-block">
                 <a href="https://www.siddarthasokan.com/" target="_blank">Siddarth Asokan</a><sup>1</sup><sup>&Dagger;</sup>,
               </span>
-              <span class="author-block">Yashoteja Prabhu<sup>1</sup>,</span>
-              <span class="author-block">Jian Jiao<sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://yashoteja.github.io/" target="_blank">Yashoteja Prabhu</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=D6KwmF8AAAAJ&hl=en" target="_blank">Jian Jiao</a><sup>2</sup>,
+              </span>
               <span class="author-block">
                 <a href="https://manikvarma.org/" target="_blank">Manik Varma</a><sup>1</sup>
               </span>
@@ -114,7 +119,7 @@
             </div>
 
             <div class="is-size-5 publication-authors" style="margin-top:0.5rem;">
-              <strong>KDD 2024</strong> &nbsp;&middot;&nbsp; <span style="color:#3273dc;">Oral Presentation</span>
+              <strong>KDD 2024</strong>
             </div>
 
             <div class="column has-text-centered">
@@ -153,8 +158,7 @@
                 </span>
                 <!-- Slides -->
                 <span class="link-block">
-                  <a href="https://yadav-sachin.github.io/assets/docs/KDD_Extreme_Meta_Classification_Presentation.pdf"
-                    target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <a href="#slides" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"><i class="fas fa-desktop"></i></span>
                     <span>Slides</span>
                   </a>
@@ -305,6 +309,18 @@
         </div>
       </div>
 
+      <div class="columns is-centered has-text-centered" style="margin-top:1.5rem;">
+        <div class="column is-four-fifths">
+          <img src="./static/images/irene_algorithm.png" alt="IRENE architecture">
+          <p>
+            <strong>The IRENE meta-classifier.</strong> Given a novel item \(Z_n\), the classifier selector
+            \(\mathcal{S}\) retrieves its \(K\) nearest observed-item classifiers via ANNS, and the transformer-based
+            generator \(\mathcal{G}\) fuses them with the item's encoder representation to produce the meta-classifier
+            \(u_n\) used for retrieval.
+          </p>
+        </div>
+      </div>
+
       <div class="content has-text-justified" style="margin-top:1.5rem;">
         <p>
           The meta-classifier for item \(z_\ell\) is produced by the generator
@@ -414,19 +430,6 @@
     </div>
   </section>
 
-  <!-- ======================= ROBUSTNESS ======================= -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Robust as the Catalogue Shifts</h2>
-      <p class="has-text-centered content">
-        As the fraction of novel items grows from 10% to 40% on LF-WikiHierarchy-550K, the base encoder degrades sharply
-        while IRENE stays resilient &mdash; consistent with its \(L\)-independent generalization bound.
-      </p>
-      <canvas id="robust-chart" style="width:100%; height:380px;"></canvas>
-      <p class="subtitle has-text-centered" style="margin-top:1rem;">Zero-shot <strong>P@1</strong> vs. novel-item ratio.</p>
-    </div>
-  </section>
-
   <!-- ======================= EFFICIENCY ======================= -->
   <section class="section" style="background-color:#fafafa;">
     <div class="container is-max-desktop">
@@ -512,79 +515,19 @@
     </div>
   </section>
 
-  <!-- ======================= QUALITATIVE ======================= -->
-  <section class="section" style="background-color:#fafafa;">
+  <!-- ======================= SLIDES ======================= -->
+  <section class="section" id="slides" style="background-color:#fafafa;">
     <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Beyond Text Matching</h2>
-      <p class="content has-text-justified">
-        By endowing a query's representation with world knowledge drawn from the classifiers of similar observed items,
-        IRENE surfaces advertiser keywords that share <em>no lexical overlap</em> with the query &mdash; matches that
-        the entire production ensemble missed.
+      <h2 class="title is-3 has-text-centered">Talk Slides</h2>
+      <p class="has-text-centered content">
+        Slides from the KDD 2024 presentation.
+        <a href="./static/docs/irene_kdd24_slides.pdf" target="_blank">Open in a new tab</a>.
       </p>
-      <div class="columns is-centered">
-        <div class="column is-three-quarters">
-          <table class="table is-bordered is-striped is-hoverable is-fullwidth qual-table">
-            <thead>
-              <tr>
-                <th>User Query</th>
-                <th>Advertiser Keyword Retrieved by IRENE</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>firewalla gold att fiber connection</td><td>att ethernet network</td></tr>
-              <tr><td>work order app hydraulics</td><td>plumbing work order software</td></tr>
-              <tr><td>netbenefits com login</td><td>fidelity retirement account</td></tr>
-              <tr><td>hypokalemia</td><td>high potassium in the blood</td></tr>
-              <tr><td>23andme</td><td>genetic screening</td></tr>
-              <tr><td>financial services crm software</td><td>sap customer management software</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div style="position: relative; width: 100%; padding-top: 62%;">
+        <iframe src="./static/docs/irene_kdd24_slides.pdf" title="IRENE KDD 2024 slides"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:1px solid #ddd; border-radius:6px;">
+        </iframe>
       </div>
-    </div>
-  </section>
-
-  <!-- ======================= ABLATIONS ======================= -->
-  <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Ablations</h2>
-      <p class="content has-text-justified">
-        The attention-based generator is the workhorse: replacing it with a (weighted) sum of classifiers drops zero-shot
-        P@1 by roughly <strong>24%</strong>. Consistent with Lemma 2, a small neighborhood (\(K\approx 3\)) and a single
-        generator layer (\(D=1\)) balance capacity against overfitting and training cost.
-      </p>
-      <div class="columns is-centered">
-        <div class="column is-three-quarters">
-          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
-            <caption style="caption-side:bottom; padding-top:0.5rem; color:#777;">
-              NGAME+IRENE on LF-WikiHierarchy-550K-10, zero-shot. \(D\): generator depth; \(K\): neighbors selected.
-            </caption>
-            <thead>
-              <tr>
-                <th>Configuration</th>
-                <th class="has-text-centered">P@1 &uarr;</th>
-                <th class="has-text-centered">P@5 &uarr;</th>
-                <th class="has-text-centered">R@10 &uarr;</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="highlight-row"><td>IRENE (\(D=1,\,K=3\))</td><td class="has-text-centered">69.29</td><td class="has-text-centered">38.81</td><td class="has-text-centered">80.40</td></tr>
-              <tr><td>Generator depth \(D=2\)</td><td class="has-text-centered">70.36</td><td class="has-text-centered">39.06</td><td class="has-text-centered">80.39</td></tr>
-              <tr><td>Generator depth \(D=4\)</td><td class="has-text-centered">70.71</td><td class="has-text-centered">39.11</td><td class="has-text-centered">80.27</td></tr>
-              <tr><td>\(\mathcal{G}\) as Sum</td><td class="has-text-centered">45.49</td><td class="has-text-centered">25.46</td><td class="has-text-centered">59.01</td></tr>
-              <tr><td>\(\mathcal{G}\) as weighted Sum</td><td class="has-text-centered">46.39</td><td class="has-text-centered">25.88</td><td class="has-text-centered">59.29</td></tr>
-              <tr><td>Selector \(K=1\)</td><td class="has-text-centered">68.98</td><td class="has-text-centered">38.56</td><td class="has-text-centered">80.11</td></tr>
-              <tr><td>Selector \(K=6\)</td><td class="has-text-centered">69.99</td><td class="has-text-centered">39.12</td><td class="has-text-centered">80.79</td></tr>
-              <tr><td>Selector \(K=20\)</td><td class="has-text-centered">69.07</td><td class="has-text-centered">38.57</td><td class="has-text-centered">79.80</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <p class="content has-text-justified">
-        IRENE also extends naturally to the extreme tail. <strong>IRENE-OneShot</strong> folds the single revealed query
-        of a one-shot item into the classifier selector via max-voting, beating even an idealized NGAME retrained from
-        scratch on the consolidated data by ~1&ndash;2% &mdash; without any fine-tuning of the base model.
-      </p>
     </div>
   </section>
 
@@ -677,38 +620,7 @@
         }
       });
 
-      // --- Chart 3: Robustness to novel ratio ---
-      new Chart(document.getElementById('robust-chart').getContext('2d'), {
-        type: 'line',
-        data: {
-          labels: ['10%', '20%', '30%', '40%'],
-          datasets: [
-            {
-              label: 'NGAME',
-              data: [66.19, 65.29, 63.59, 60.12],
-              borderColor: 'rgba(153, 102, 255, 1)',
-              backgroundColor: 'rgba(153, 102, 255, 0.15)',
-              borderWidth: 2, fill: false, tension: 0.2, pointRadius: 5
-            },
-            {
-              label: 'NGAME + IRENE',
-              data: [91.33, 89.37, 89.50, 87.64],
-              borderColor: 'rgba(75, 192, 192, 1)',
-              backgroundColor: 'rgba(75, 192, 192, 0.15)',
-              borderWidth: 3, fill: false, tension: 0.2, pointRadius: 5
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: { beginAtZero: false, min: 50, title: { display: true, text: 'Zero-Shot P@1' } },
-            x: { title: { display: true, text: 'Fraction of novel items' } }
-          }
-        }
-      });
-
-      // --- Chart 4: 100M keyword R@100 ---
+      // --- Chart 3: 100M keyword R@100 ---
       new Chart(document.getElementById('keyword-chart').getContext('2d'), {
         type: 'bar',
         data: {
