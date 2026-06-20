@@ -309,8 +309,15 @@
 
         <!-- Publications Section -->
         <div class="header-1">Publications, Patents, Benchmarks and Libraries</div>
+        <div class="pub-filter" role="tablist" aria-label="Filter publications by type">
+          <button class="pub-filter-btn active" data-filter="all">All</button>
+          <button class="pub-filter-btn" data-filter="publication">Publications</button>
+          <button class="pub-filter-btn" data-filter="patent">Patents</button>
+          <button class="pub-filter-btn" data-filter="benchmark">Benchmarks</button>
+          <button class="pub-filter-btn" data-filter="library">Libraries</button>
+        </div>
 
-        <div class="row">
+        <div class="row pub-entry" data-type="patent">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/affiliations/google-deepmind-logo.png"
               alt="Discrete Diffusion Neural Networks">
@@ -327,7 +334,7 @@
           </div>
         </div>
         <!-- Gemini 2.5 Technical Report Entry -->
-        <div class="row">
+        <div class="row pub-entry" data-type="publication">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/products/gemini_2p5.webp" alt="Gemini 2.5 Technical Report figure">
           </div>
@@ -344,7 +351,7 @@
             </p>
           </div>
         </div>
-        <div class="row">
+        <div class="row pub-entry" data-type="patent">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/interleaved_gibbs_diffusion.png"
               alt="Interleaved Gibbs Diffusion">
@@ -363,7 +370,7 @@
         </div>
 
         <!-- Publication -1-->
-        <div class="row">
+        <div class="row pub-entry" data-type="publication">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/interleaved_gibbs_diffusion.png"
               alt="Interleaved Gibbs Diffusion figure">
@@ -385,7 +392,7 @@
         </div>
 
         <!-- Publication 0 -->
-        <div class="row">
+        <div class="row pub-entry" data-type="publication">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/world_knowledge_missing_labels.png"
               alt="Extreme Meta-Classification">
@@ -405,7 +412,7 @@
         </div>
 
         <!-- Patent Entry -->
-        <div class="row">
+        <div class="row pub-entry" data-type="patent">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/patent_retrieval_novel_search_keywords_figure.jpg"
               alt="Patent Figure: Retrieval of novel search keywords">
@@ -425,7 +432,7 @@
         </div>
 
         <!-- Publication 1 -->
-        <div class="row">
+        <div class="row pub-entry" data-type="publication">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/extreme_meta_classification_zero_shot.png"
               alt="Extreme Meta-Classification">
@@ -448,7 +455,7 @@
         </div>
 
         <!-- Benchmark -->
-        <div class="row">
+        <div class="row pub-entry" data-type="benchmark">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/orcas_800k_benchmark.png" alt="ORCAS-800K Benchmark">
           </div>
@@ -469,7 +476,7 @@
         </div>
 
         <!-- Publication 2 -->
-        <div class="row">
+        <div class="row pub-entry" data-type="publication">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/deep_encoders_auxiliary_parameters.png"
               alt="Deep Encoders with Auxiliary Parameters">
@@ -491,7 +498,7 @@
         </div>
 
         <!-- Library -->
-        <div class="row">
+        <div class="row pub-entry" data-type="library">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/tinygp_logo.png" alt="TinyGP">
           </div>
@@ -511,7 +518,7 @@
         </div>
 
         <!-- Publication 3 -->
-        <div class="row">
+        <div class="row pub-entry" data-type="publication">
           <div class="col-3 col-md-2 my-auto">
             <img class="sideimg" src="assets/img/publications/deep_gaussian_air_quality.jpeg"
               alt="Deep Gaussian Processes">
@@ -633,6 +640,25 @@
               }
             });
           });
+        </script>
+
+        <!-- Publications Filter -->
+        <script>
+          (function () {
+            var btns = document.querySelectorAll('.pub-filter-btn');
+            var entries = document.querySelectorAll('.pub-entry');
+            btns.forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                var filter = btn.getAttribute('data-filter');
+                btns.forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                entries.forEach(function (entry) {
+                  var show = (filter === 'all' || entry.getAttribute('data-type') === filter);
+                  entry.style.display = show ? '' : 'none';
+                });
+              });
+            });
+          })();
         </script>
 
 </body>

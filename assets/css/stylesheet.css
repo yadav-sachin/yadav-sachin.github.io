@@ -355,6 +355,39 @@ a:hover {
     margin-left: 8px;
 }
 
+/* Publications filter bar */
+.pub-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: -0.3rem 0 1.5rem;
+}
+
+.pub-filter-btn {
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #6b665d;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid #d8d2c6;
+    border-radius: 999px;
+    padding: 4px 15px;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.pub-filter-btn:hover {
+    color: #46423b;
+    border-color: #bdb6a7;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.pub-filter-btn.active {
+    color: #fdfbf5;
+    background: #8d7b5f;
+    border-color: #8d7b5f;
+}
+
 /* Custom Tag for Publications */
 .tag-publication {
     background-color: #f0e1ff;
