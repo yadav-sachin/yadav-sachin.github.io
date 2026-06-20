@@ -305,7 +305,7 @@
 
   <!-- ======================= TEASER ======================= -->
   <section class="block-sec">
-    <div class="wrap">
+    <div class="wrap" style="max-width:760px;">
       <figure class="fig">
         <img src="./static/images/emmett_framework.png" alt="EMMETT framework overview">
         <figcaption>
@@ -345,7 +345,7 @@
         </p>
       </div>
 
-      <div class="stat-grid cols-3" style="margin-top:2.2rem;">
+      <div class="stat-grid cols-3" style="margin-top:2.2rem; grid-template-columns:repeat(2,1fr); max-width:660px; margin-left:auto; margin-right:auto;">
         <div class="stat-card">
           <div class="stat-number">+15<span style="font-size:1.4rem;">%</span></div>
           <div class="stat-label">max gain in Recall@10 over leading encoders (zero-shot)</div>
@@ -353,10 +353,6 @@
         <div class="stat-card">
           <div class="stat-number">+4.2<span style="font-size:1.4rem;">%</span></div>
           <div class="stat-label">ad click-through rate in a live A/B test on a major search engine</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">350&times;</div>
-          <div class="stat-label">faster at inference than SemSup-XC, with no added retrieval latency</div>
         </div>
       </div>
     </div>
